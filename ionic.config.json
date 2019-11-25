@@ -1,0 +1,7 @@
+{
+  "name": "NathiDashboard",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}

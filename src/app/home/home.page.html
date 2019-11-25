@@ -1,0 +1,78 @@
+<ion-content>
+  <div class="container">
+    <div class="cName">
+      <p>Nathi's</p>
+      <span><b>Tournaments</b></span>
+    </div>
+    <div class="middle-div ">
+      <div class="loginTitle animated" [ngClass]="{'fadeInUp': login,'fadeOutUp': !login}">
+        <h4>Dashboard</h4>
+      </div>
+      <div class="profileTitle animated " [ngClass]="{'fadeInUp': profile,'fadeOutUp': !profile}">
+        <h4>Manage Profile</h4>
+      </div>
+      <!-- login form -->
+      <div class="form animated " [ngClass]="{'fadeInUp': login,'fadeOutUp': !login}">
+        <form (ngSubmit)="signIn(adminForm.value)" [formGroup]="adminForm">
+          <input type="email" formControlName="email" placeholder="Email">
+          <div style='color: rgb(255, 74, 74);' *ngFor="let validation of validation_messages.email">
+            <div
+              *ngIf="adminForm.get('email').hasError(validation.type) && (adminForm.get('email').dirty || adminForm.get('email').touched)">
+              {{validation.message}}
+            </div>
+
+          </div>
+          <br>
+          <input type="password" formControlName="password" placeholder="Password">
+          <div style='color: rgb(255, 74, 74);' *ngFor="let validation of validation_messages.password">
+            <div
+              *ngIf="adminForm.get('password').hasError(validation.type) && (adminForm.get('password').dirty || adminForm.get('password').touched)">
+              {{validation.message}}
+            </div>
+
+          </div> <br>
+          <button *ngIf="signingin&&adminForm.valid" disabled="true"><ion-spinner name="bubbles"></ion-spinner></button>
+          <button *ngIf="adminForm.valid&&!signingin">Sign In</button>
+          <button style='opacity: 0.5;' *ngIf="!adminForm.valid" disabled="true">Sign In</button>
+        </form>
+      </div>
+      <!-- user profile -->
+      <div class="profile animated " [ngClass]="{'fadeInUp': profile,'fadeOutUp': !profile}">
+        <div class="image" >
+           <div class="iSpinner">
+              <ion-spinner name="lines"></ion-spinner>
+           </div>
+          <img
+            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRZ4iz2iJIpybxaWUwf4aLrDmRN4ISoaZ-LAnGlwHkmlaMRIPajcQ&s">
+          <div class="pLabel">
+            
+              
+              <!-- <input type="file" accept="image/*" (change)="profileImage($event)"> -->
+          </div>
+        </div>
+        <form (ngSubmit)="createProfile(profileForm.value)" [formGroup]="profileForm">
+          <input type="text" formControlName="fullName" placeholder="Full Name"> 
+          <div style='color: rgb(255, 74, 74);' *ngFor="let validation of profile_validation.fullName">
+              <div
+                *ngIf="profileForm.get('fullName').hasError(validation.type) && (profileForm.get('fullName').dirty || profileForm.get('fullName').touched)">
+                {{validation.message}}
+              </div>
+  
+            </div>
+          <br>
+          <input type="tel" formControlName="phoneNumber" placeholder="Phone Number"> 
+          <div style='color: rgb(255, 74, 74);' *ngFor="let validation of profile_validation.phoneNumber">
+              <div
+                *ngIf="profileForm.get('phoneNumber').hasError(validation.type) && (profileForm.get('phoneNumber').dirty || profileForm.get('phoneNumber').touched)">
+                {{validation.message}}
+              </div>
+  
+            </div>
+          <br>
+          <button *ngIf="profileForm.valid">Finnish</button>
+          <button style='opacity: 0.5;' *ngIf="!profileForm.valid" disabled="true">Finnish</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</ion-content>

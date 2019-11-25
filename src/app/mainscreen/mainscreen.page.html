@@ -1,0 +1,88 @@
+<ion-content>
+  <div class="toCMS">
+      <ion-button shape="round" (click)="toCMS()">
+        CMS
+      </ion-button>
+    </div>
+    <div class="toLogout">
+      <ion-button color="danger"  shape="round" (click)="signOut()">
+        SignOut
+      </ion-button>
+    </div>
+  <div class="container">
+    
+    <div class="leftDiv">
+
+    </div>
+    <div class="middleDiv">
+
+      <div class="head">
+        <div class="logo">
+          <p>N</p>
+        </div>
+        <p><b>Nathi's</b> Dashboard</p>
+      </div>
+      <div class="middleContent">
+        <div class="left">
+          <div class="lHead">
+            <p>CMS Users</p>
+            <ion-button (click)="createUser()" fill='clear' style="margin: 0 !important; color: white !important;">
+              <ion-icon slot="start" name="add"></ion-icon>
+
+            </ion-button>
+          </div>
+          <div class="lList">
+            <div class="card" *ngFor="let item of cards">
+              <div class="image">
+                <img src="../../assets/icon/favicon.png" alt="">
+              </div>
+              <div class="details">
+                <div>
+                  <p>Name Surname</p>
+                  <p>0123654789</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="right">
+          <div class="rHead">
+            <p>New Tournament</p>
+            <br>
+            <p> </p>
+          </div>
+          <div class="rList">
+            <div class="card" *ngFor="let item of cards">
+              <div class="appro">
+                <ion-button shape="round" size="small" (click)="approveTournament('dummy')" >
+                  Approve
+                </ion-button>
+              </div>
+              <div class="tTitle">
+                <h5>Msansi Champion Tournament</h5>
+              </div>
+              <div class="tDetails">
+                <p>Participants 8</p>
+                <p>FNB Stadium</p>
+                <br>
+                <p>27 Jul, 2019</p>
+                <p>R 200.00 fee</p>
+                <p>Top 32</p>
+                <p>Application open until - 01 Oct 2019</p>
+                <p>2 Vendors Max</p>
+              </div>
+              <div class="sponsors">
+                <img src="https://pbs.twimg.com/profile_images/1039121165644705792/OM_oZ82Y.jpg" alt="">
+                <img src="https://gadget.co.za/wp-content/uploads/2019/10/1200px-MTN_Logo.svg_.png" alt="">
+                <img src="https://yt3.ggpht.com/a/AGF-l7-eSjHnO7Ok3D8TUfiQXd5Du4MzhLvQnTSYEQ=s900-c-k-c0xffffffff-no-rj-mo" alt="">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="rightDiv">
+    </div>
+  </div>
+</ion-content>
