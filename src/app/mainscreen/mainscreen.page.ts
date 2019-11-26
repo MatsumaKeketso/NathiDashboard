@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { AlertController, NavController } from '@ionic/angular';
+import { Component, OnInit, NgZone } from '@angular/core';
+import { AlertController, NavController, LoadingController } from '@ionic/angular';
 import * as firebase from 'firebase'
 @Component({
   selector: 'app-mainscreen',
@@ -8,15 +8,37 @@ import * as firebase from 'firebase'
 })
 export class MainscreenPage implements OnInit {
   cards = []
+  newTournaments = []
+  cmsMembers = []
   db = firebase.firestore()
-  constructor(public alertCtrl: AlertController, public navCtrl: NavController) { }
+  constructor(public alertCtrl: AlertController, public navCtrl: NavController, public zone: NgZone, public loadingCtrl: LoadingController) { }
 
   ngOnInit() {
     while (this.cards.length < 80) {
       this.cards.push('card')
       console.log(this.cards.length);
     }
+      this.db.collection('newTournaments').onSnapshot(res =>{
+        this.getTournaments()
+      })
     
+  }
+  getTournaments() {
+    this.zone.run(()=>{
+      
+      this.db.collection('newTournaments').orderBy("dateCreated").get().then(res => {
+        this.newTournaments = []
+      res.forEach(doc => {
+        let tourn = {
+          docid: doc.id,
+          doc: doc.data()
+        }
+        this.newTournaments.unshift(tourn)
+      })
+      console.log('got tournas',this.newTournaments);
+      
+    })
+    })
     
   }
   async createUser() {
@@ -51,8 +73,24 @@ export class MainscreenPage implements OnInit {
     })
     alerter.present()
   }
-  approveTournament(document) {
-    console.log('Will Approve Tournament');
+ async approveTournament(document) {
+    let loader = await this.loadingCtrl.create({
+      message: 'Approving '+document.doc.formInfo.tournamentName+'.'
+    })
+    loader.present()
+    this.db.collection('newTournaments').doc(document.docid).update({approved: true}).then(async res => {
+      loader.dismiss()
+      let alerter = await this.alertCtrl.create({
+        header: 'Success',
+        message: document.doc.formInfo.tournamentName+' can be seen by Team Mamangers and Vendors. The CMS will accept their Invitations.',
+        buttons: [{
+          text: 'Okay',
+          role: 'cancel'
+        }]
+      })
+      alerter.present()
+      
+    })
     
   }
   toCMS() {

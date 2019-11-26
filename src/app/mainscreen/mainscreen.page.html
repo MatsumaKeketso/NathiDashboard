@@ -52,29 +52,34 @@
             <p> </p>
           </div>
           <div class="rList">
-            <div class="card" *ngFor="let item of cards">
+            <div class="card" *ngFor="let t of newTournaments">
               <div class="appro">
-                <ion-button shape="round" size="small" (click)="approveTournament('dummy')" >
+                  <ion-button *ngIf="t.doc.approved==true" color="success" shape="round" size="small" >
+                      Approved
+                    </ion-button>
+                <ion-button shape="round" size="small" *ngIf="t.doc.approved==false" (click)="approveTournament(t)" >
                   Approve
                 </ion-button>
               </div>
               <div class="tTitle">
-                <h5>Msansi Champion Tournament</h5>
+                <h5>{{t.doc.formInfo.tournamentName}}</h5>
               </div>
               <div class="tDetails">
-                <p>Participants 8</p>
-                <p>FNB Stadium</p>
+                <p>Participants {{t.doc.formInfo.type}}</p>
+                <p>{{t.doc.formInfo.location}}</p>
                 <br>
-                <p>27 Jul, 2019</p>
-                <p>R 200.00 fee</p>
-                <p>Top 32</p>
-                <p>Application open until - 01 Oct 2019</p>
-                <p>2 Vendors Max</p>
+                <p>{{t.doc.formInfo.startDate | date}} to {{t.doc.formInfo.endDate | date}}</p>
+                <p>R {{t.doc.formInfo.joiningFee}}.00 fee</p>
+                <p>Top {{t.doc.formInfo.type}}</p>
+                <p>Application open until - {{t.doc.formInfo.applicationClosing | date}}</p>
+                <p>{{t.doc.formInfo.approvedVendors.length}} Vendors Max</p>
               </div>
               <div class="sponsors">
-                <img src="https://pbs.twimg.com/profile_images/1039121165644705792/OM_oZ82Y.jpg" alt="">
-                <img src="https://gadget.co.za/wp-content/uploads/2019/10/1200px-MTN_Logo.svg_.png" alt="">
-                <img src="https://yt3.ggpht.com/a/AGF-l7-eSjHnO7Ok3D8TUfiQXd5Du4MzhLvQnTSYEQ=s900-c-k-c0xffffffff-no-rj-mo" alt="">
+                <div *ngFor="let s of t.doc.formInfo.sponsors" >
+                  <p *ngIf="t.doc.formInfo.sponsors.length==0" >No Sponsors</p>
+                   <img *ngIf="t.doc.formInfo.sponsors.length>0" src="{{s}}" alt="">
+                </div>
+               
               </div>
             </div>
           </div>

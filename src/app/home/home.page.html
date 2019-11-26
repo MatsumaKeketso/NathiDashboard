@@ -13,7 +13,8 @@
       </div>
       <!-- login form -->
       <div class="form animated " [ngClass]="{'fadeInUp': login,'fadeOutUp': !login}">
-        <form (ngSubmit)="signIn(adminForm.value)" [formGroup]="adminForm">
+        
+  <form (ngSubmit)="signIn(adminForm.value)" [formGroup]="adminForm">
           <input type="email" formControlName="email" placeholder="Email">
           <div style='color: rgb(255, 74, 74);' *ngFor="let validation of validation_messages.email">
             <div
@@ -50,6 +51,10 @@
               <!-- <input type="file" accept="image/*" (change)="profileImage($event)"> -->
           </div>
         </div>
+
+
+
+
         <form (ngSubmit)="createProfile(profileForm.value)" [formGroup]="profileForm">
           <input type="text" formControlName="fullName" placeholder="Full Name"> 
           <div style='color: rgb(255, 74, 74);' *ngFor="let validation of profile_validation.fullName">
