@@ -82,19 +82,16 @@ export class MainscreenPage implements OnInit {
         placeholder: 'Password'
       }],
       buttons: [
-        {
-          text: 'Create User', handler: (data) => {
-            console.log(data);
-            this.db.collection('CMS_users').add(data).then(async res => {
-              let goodRes = await this.alertCtrl.create({
-                header: 'Created new User.',
-                message: 'They must use the credentials for this account to login to the CMS',
-                buttons: [{
-                  text: 'Done',
-                  role: 'cancel'
-                }]
-              })
-              goodRes.present()
+        {text: 'Create User', handler: (data) => {
+          console.log(data);
+          this.db.collection('CMS_users').add({data,profile: 'no'}).then(async res => {
+            let goodRes = await this.alertCtrl.create({
+              header: 'Created new User.',
+              message:'They must use the credentials for this account to login to the CMS',
+              buttons: [{
+                text: 'Done',
+                role: 'cancel'
+              }]
             })
           }
         } 
