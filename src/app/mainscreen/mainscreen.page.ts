@@ -97,7 +97,7 @@ export class MainscreenPage implements OnInit {
               goodRes.present()
             })
           }
-        }
+        } 
       ]
     })
     alerter.present()
