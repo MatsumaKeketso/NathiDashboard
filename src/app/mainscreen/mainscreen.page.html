@@ -1,19 +1,16 @@
 <ion-content>
   <div class="toCMS">
-      <ion-button shape="round" (click)="toCMS()">
+      <ion-button shape="round"  size="small"  (click)="toCMS()">
         CMS
       </ion-button>
     </div>
     <div class="toLogout">
-      <ion-button color="danger"  shape="round" (click)="signOut()">
+      <ion-button color="danger" size="small"  shape="round" (click)="signOut()">
         SignOut
       </ion-button>
     </div>
   <div class="container">
-    
-    <div class="leftDiv">
-
-    </div>
+    <div class="leftDiv"></div>
     <div class="middleDiv">
 
       <div class="head">
@@ -23,33 +20,37 @@
         <p><b>Nathi's</b> Dashboard</p>
       </div>
       <div class="middleContent">
-        <div class="left">
+        <div class="left animated" [ngClass]="{'bounceInUp':view.users,'bounceOutDown':!view.users}" >
           <div class="lHead">
-            <p>CMS Users</p>
+            <p style="font-size: 3vw;">CMS Users</p>
+            
             <ion-button (click)="createUser()" fill='clear' style="margin: 0 !important; color: white !important;">
               <ion-icon slot="start" name="add"></ion-icon>
-
             </ion-button>
+            <ion-button (click)="changeView('tournaments')" fill='clear' size="small" style="margin: 0 !important; color: white !important;">
+                Tournaments
+              </ion-button>
           </div>
           <div class="lList">
-            <div class="card" *ngFor="let item of cards">
+            <div class="card" *ngFor="let item of cmsMembers">
               <div class="image">
-                <img src="../../assets/icon/favicon.png" alt="">
+                <img src="{{item.doc.image}}" alt="">
               </div>
               <div class="details">
                 <div>
-                  <p>Name Surname</p>
-                  <p>0123654789</p>
+                  <p>{{item.doc.details.fullName}}</p>
+                  <p>{{item.doc.details.phoneNumber}}</p>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <div class="right">
+        <div class="right animated" [ngClass]="{'bounceInUp':view.tournaments,'bounceOutDown':!view.tournaments}">
           <div class="rHead">
             <p>New Tournament</p>
-            <br>
-            <p> </p>
+            <ion-button (click)="changeView('users')" fill='clear' size="small" style="margin: 0 !important; color: white !important;">
+                Users
+              </ion-button>
           </div>
           <div class="rList">
             <div class="card" *ngFor="let t of newTournaments">
@@ -72,7 +73,7 @@
                 <p>R {{t.doc.formInfo.joiningFee}}.00 fee</p>
                 <p>Top {{t.doc.formInfo.type}}</p>
                 <p>Application open until - {{t.doc.formInfo.applicationClosing | date}}</p>
-                <p>{{t.doc.formInfo.approvedVendors.length}} Vendors Max</p>
+                <!-- <p *ngIf="t.doc.formInfo.approvedVendors.length" >{{t.doc.formInfo.approvedVendors.length}} Vendors Max</p> -->
               </div>
               <div class="sponsors">
                 <div *ngFor="let s of t.doc.formInfo.sponsors" >
@@ -85,9 +86,7 @@
           </div>
         </div>
       </div>
-
     </div>
-    <div class="rightDiv">
-    </div>
+    <div class="rightDiv"></div>
   </div>
 </ion-content>

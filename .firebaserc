@@ -1,6 +1,6 @@
 {
   "projects": {
-    "default": "nathi-stourmentdb",
-    "testing": "nathistournamentdb"
+    "www": "nathistournamentdb",
+    "default": "nathistournamentdb"
   }
 }
