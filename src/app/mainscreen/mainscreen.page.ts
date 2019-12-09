@@ -93,7 +93,8 @@ export class MainscreenPage implements OnInit {
                 role: 'cancel'
               }]
             })
-          }
+          })
+        }
         }
       ]
     })
