@@ -1,10 +1,16 @@
 <ion-content>
+    <div class="checking animated" [ngClass]="{'fadeOut': checking.login,'fadeOut': checking.profile}">
+        <div class="c">
+          <p>{{authStatus}}</p>
+          <ion-spinner color="light" name="dots"></ion-spinner>
+        </div>
+      </div>
   <div class="container">
     <div class="cName">
       <p>Nathi's</p>
       <span><b>Tournaments</b></span>
     </div>
-    <div class="middle-div ">
+    <div class="middle-div" id="particles-js">
       <div class="loginTitle animated" [ngClass]="{'fadeInUp': login,'fadeOutUp': !login}">
         <h4>Dashboard</h4>
       </div>
@@ -13,22 +19,22 @@
       </div>
       <!-- login form -->
       <div class="form animated " [ngClass]="{'fadeInUp': login,'fadeOutUp': !login}">
-        
+
   <form (ngSubmit)="signIn(adminForm.value)" [formGroup]="adminForm">
           <input type="email" formControlName="email" placeholder="Email">
           <div style='color: rgb(255, 74, 74);' *ngFor="let validation of validation_messages.email">
-            <div
+            <div class="err"
               *ngIf="adminForm.get('email').hasError(validation.type) && (adminForm.get('email').dirty || adminForm.get('email').touched)">
-              {{validation.message}}
+              <p>{{validation.message}}</p>
             </div>
 
           </div>
           <br>
           <input type="password" formControlName="password" placeholder="Password">
           <div style='color: rgb(255, 74, 74);' *ngFor="let validation of validation_messages.password">
-            <div
+            <div class="err"
               *ngIf="adminForm.get('password').hasError(validation.type) && (adminForm.get('password').dirty || adminForm.get('password').touched)">
-              {{validation.message}}
+              <p>{{validation.message}}</p>
             </div>
 
           </div> <br>
@@ -39,16 +45,16 @@
       </div>
       <!-- user profile -->
       <div class="profile animated " [ngClass]="{'fadeInUp': profile,'fadeOutUp': !profile}">
-        <div class="image" >
-           <div class="iSpinner">
-              <ion-spinner name="lines"></ion-spinner>
+        <div class="image" (click)="selectImage()">
+           <div class="iSpinner" *ngIf="uploadprogress>0" >
+              <div>
+                  <ion-spinner color="light" name="lines"></ion-spinner>
+                  <ion-progress-bar value="uploadprogress/100"></ion-progress-bar>
+              </div>
            </div>
           <img
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRZ4iz2iJIpybxaWUwf4aLrDmRN4ISoaZ-LAnGlwHkmlaMRIPajcQ&s">
+            src="{{adminProfile.image}}">
           <div class="pLabel">
-            
-              
-              <!-- <input type="file" accept="image/*" (change)="profileImage($event)"> -->
           </div>
         </div>
 
@@ -58,18 +64,18 @@
         <form (ngSubmit)="createProfile(profileForm.value)" [formGroup]="profileForm">
           <input type="text" formControlName="fullName" placeholder="Full Name"> 
           <div style='color: rgb(255, 74, 74);' *ngFor="let validation of profile_validation.fullName">
-              <div
+              <div class="err"
                 *ngIf="profileForm.get('fullName').hasError(validation.type) && (profileForm.get('fullName').dirty || profileForm.get('fullName').touched)">
-                {{validation.message}}
+                <p>{{validation.message}}</p>
               </div>
   
             </div>
           <br>
           <input type="tel" formControlName="phoneNumber" placeholder="Phone Number"> 
           <div style='color: rgb(255, 74, 74);' *ngFor="let validation of profile_validation.phoneNumber">
-              <div
+              <div class="err"
                 *ngIf="profileForm.get('phoneNumber').hasError(validation.type) && (profileForm.get('phoneNumber').dirty || profileForm.get('phoneNumber').touched)">
-                {{validation.message}}
+                <p>{{validation.message}}</p>
               </div>
   
             </div>

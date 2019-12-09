@@ -2,6 +2,9 @@
 ::-webkit-scrollbar {
     width: 5px;
   }
+  * {
+      transition: 0.4s;
+  }
   ::-webkit-scrollbar:hover {
     width: 15px;
   }
@@ -26,13 +29,13 @@
   .toCMS {
     position: absolute;
     top: 10px;
-    left: 10vw;
+    left: 2vw;
     z-index: 201;
 }
 .toLogout {
     position: absolute;
     top: 10px;
-    right: 10vw;
+    right: 2vw;
     z-index: 200;
 }
 .container {
@@ -43,7 +46,7 @@
     background-position: 50%;
     position: relative;
     user-select: none;
-    // overflow: hidden;
+    overflow: hidden;
    
     .leftDiv {
         position: absolute;
@@ -82,8 +85,8 @@
             height: 10%;
             .logo {
 
-                width: 50px;
-                height: 50px;
+                width: 8vw;
+                height: 8vw;
                 background: green;
                 margin: 10px auto;
                 border-radius: 200px;
@@ -95,7 +98,7 @@
                 p {
                     text-align: center;
                     margin: auto;
-                    font-size: 30px;
+                    font-size: 3vw;
                 }
             }
             p {
@@ -105,18 +108,24 @@
         .middleContent {
             width: 100%;
             height: 85%;
-            display: flex;
-            flex-wrap: nowrap;
+            // display: flex;
+            // flex-wrap: nowrap;
+            // USERS
             .left {
-                flex-basis: 50%;
+                height: 81%;
+                width: 100%;
                 backdrop-filter: blur(50px) brightness(150%);
                 color: white;
                 align-items: center;
                 margin: 5px;
                 border-radius: 30px 30px 0px 0px;
+                display: none;
+                position: absolute;
+                margin: 0;
                .lHead {
                    display: flex;
-                   padding: 20px;
+                   padding: 10px;
+                   align-items: center;
                 //    height: 3.5%;
                    p {
                        flex-basis: 90%;
@@ -131,7 +140,7 @@
                    .card {
                     background: white;
                        width: 90%;
-                       height: 100px;
+                       height: 58px;
                        margin: 5px auto;
                        border-radius: 10px;
                        box-shadow: 0px 3px 3px #17171717;
@@ -153,28 +162,36 @@
                            display: flex;
                            align-items: center;
                            padding: 0px 20px;
+                           p {
+                               font-size: 3vw;
+                               margin: 0;
+                           }
                        }
                    }
                }
             }
+            // TOURNAMENTS
             .right {
-                flex-basis: 50%;
+                height: 99%;
+                flex-basis: 100%;
                 backdrop-filter: blur(50px) brightness(150%);
                 margin: 5px;
-                border-radius: 30px 30px 0px 0px;
+                border-radius: 10px;
+                display: block;
                 .rHead {
                     display: flex;
-                    padding: 27px;
+                    padding: 10px;
                     p {
                         color: white;
                         flex-basis: 90%;
                         align-items: center;
                         display: flex;
+                        font-size: 3vw;
                         
                     }
                 }
                 .rList {
-                    max-height: 90%;
+                    max-height: 89%;
                     overflow-y: auto;
                     display: flex;
                     flex-wrap: wrap;
@@ -183,7 +200,7 @@
                         position: relative;
                      background: linear-gradient(rgba(255, 255, 255, 0.329)), url(../../assets/gray-polygonal-background-tmeks.jpg);
                      background-size: cover;
-                        width: 340px;
+                        width: 100%;
                         margin: 5px 5px 25px 5px;
                         border-radius: 10px;
                         box-shadow: 0px 3px 3px #17171717;
@@ -203,9 +220,11 @@
                             right: 0;
                             left: 0;
                             padding: 5px;
+                            backdrop-filter: blur(50px);
                             h5 {
                                 margin: 0;
                                 padding: 0;
+                                font-size: 5vw;
                             }
                         }
                         .tDetails {
@@ -213,7 +232,10 @@
                             align-items: center;
                             padding: 5px;
                             flex-basis: 90%;
-                            padding-top: 40px;
+                            padding:40px 0px 40px 0px;
+                             p {
+                                 font-size: 3.5vw;
+                             }
                         }
                         .sponsors {
                             display: flex;

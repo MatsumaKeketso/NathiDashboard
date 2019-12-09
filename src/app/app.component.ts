@@ -14,7 +14,7 @@ const serviceAccount = require('./nathi-stourmentdb-firebase-adminsdk-tm3sd-50e3
 })
 export class AppComponent {
   // serviceAccount = './nathi-stourmentdb-firebase-adminsdk-tm3sd-50e3041b6f.json';
-  messaging = firebase.messaging();
+  // messaging = firebase.messaging();
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
