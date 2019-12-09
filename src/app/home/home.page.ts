@@ -1,4 +1,4 @@
-import { firebaseConfig } from './../../environments/environment';
+// import { firebaseConfig } from './../../environments/environment';
 import { Component, NgZone, Renderer2 } from '@angular/core';
 import { FormControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import * as firebase from 'firebase';

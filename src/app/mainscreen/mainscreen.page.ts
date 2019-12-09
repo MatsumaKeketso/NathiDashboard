@@ -57,7 +57,7 @@ export class MainscreenPage implements OnInit {
       buttons: [
         {text: 'Create User', handler: (data) => {
           console.log(data);
-          this.db.collection('CMS_users').add(data).then(async res => {
+          this.db.collection('CMS_users').add({data,profile: 'no'}).then(async res => {
             let goodRes = await this.alertCtrl.create({
               header: 'Created new User.',
               message:'They must use the credentials for this account to login to the CMS',
