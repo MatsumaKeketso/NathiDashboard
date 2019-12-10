@@ -11,6 +11,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { firebaseConfig } from '../environments/firebaseConfigFile';
 import * as firebase from 'firebase';
 import { Camera } from '@ionic-native/camera/ngx';
+import { OneSignal } from '@ionic-native/onesignal/ngx';
 
 firebase.initializeApp(firebaseConfig);
 
@@ -22,7 +23,8 @@ firebase.initializeApp(firebaseConfig);
     StatusBar,
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-    Camera
+    Camera,
+    OneSignal
   ],
   bootstrap: [AppComponent]
 })
