@@ -5,6 +5,7 @@ import * as firebase from 'firebase';
 import { NavController, AlertController } from '@ionic/angular';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 import * as particlesJS from "particles.js";
+import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 // declare var particlesJS;
 @Component({
   selector: 'app-home',
@@ -64,13 +65,15 @@ export class HomePage {
       { type: 'maxlength', message: 'Number cannot be more than 10 digits long.' },
     ]
   }
-  constructor(public ngZone: NgZone, public renderer: Renderer2, public formBuilder: FormBuilder, public navCtrl: NavController, public alertCtrl: AlertController, public camera: Camera) {
+  constructor(public ngZone: NgZone, private splashScreen: SplashScreen, public renderer: Renderer2, public formBuilder: FormBuilder, public navCtrl: NavController, public alertCtrl: AlertController, public camera: Camera) {
 
   }
 
   ngOnInit() {
     this.ngZone.run(() => {
-
+      setTimeout(() => {
+        this.splashScreen.hide();
+      }, 3000);
       firebase.auth().onAuthStateChanged(user => {
         if (user) {
           this.db.collection('admins').doc(user.uid).get().then(res => {
@@ -179,8 +182,13 @@ export class HomePage {
             console.log('changed fomr');
           }
         })
-      }).catch(err => {
-        alert(err.message)
+      }).catch(async err => {
+        let alerter = await this.alertCtrl.create({
+          header: 'PROFILE IMAGE UPLOAD ERROR',
+          message: err.message,
+          buttons:[{text:'Okay',role:'cancel'}]
+        })
+        alerter.present()
         this.signingin = false
 
       })
@@ -196,8 +204,13 @@ export class HomePage {
     }
     this.db.collection('admins').doc(firebase.auth().currentUser.uid).set(this.adminProfile).then(res => {
       this.navCtrl.navigateForward('mainscreen')
-    }).catch(err => {
-      alert(err.message)
+    }).catch(async err => {
+      let alerter = await this.alertCtrl.create({
+        header: 'ERROR',
+        message: err.message,
+        buttons:[{text:'Okay',role:'cancel'}]
+      })
+      alerter.present()
     })
   }
 
@@ -224,15 +237,19 @@ export class HomePage {
       upload.on('state_changed', snapshot => {
         let progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
         this.uploadprogress = progress;
-      }, err => {
+      },async err => {
+        let alerter = await this.alertCtrl.create({
+          header: 'PROFILE IMAGE UPLOAD ERROR',
+          message: err.message,
+          buttons:[{text:'Okay',role:'cancel'}]
+        })
+        alerter.present()
       }, () => {
         upload.snapshot.ref.getDownloadURL().then(downUrl => {
           this.adminProfile.image = downUrl;
-          console.log('Image downUrl', downUrl);
+       
         })
       })
-    }, err => {
-      console.log("Something went wrong: ", err);
     })
 
   }
