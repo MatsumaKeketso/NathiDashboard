@@ -19,7 +19,6 @@ export class MainscreenPage implements OnInit {
     usersDiv: document.getElementsByClassName('left'),
   }
   constructor(public renderer: Renderer2,public alertCtrl: AlertController, public navCtrl: NavController, public zone: NgZone, public loadingCtrl: LoadingController) { }
-
   ngOnInit() {
     this.getUsers()
     while (this.cards.length < 80) {
@@ -66,10 +65,47 @@ export class MainscreenPage implements OnInit {
         console.log('got tournas', this.newTournaments);
       })
     })
-
   }
+  // async createUser() {
+  //   let alerter = await this.alertCtrl.create({
+  //     header: 'New CMS User',
+  //     message: 'This user will have access to your CMS',
+  //     backdropDismiss: false,
+  //     inputs: [{
+  //       name: 'email',
+  //       type: 'email',
+  //       placeholder: 'Email'
+  //     }, {
+  //       name: 'password',
+  //       type: 'password',
+  //       placeholder: 'Password'
+  //     }],
+  //     buttons: [
+  //       {
+  //         text: 'Create User',
+  //         handler: (data) => {
+  //         console.log('credentials', data);
+          
+  //         this.db.collection('CMS_users').add({data,profile: 'no'}).then(async res => {
+  //           let goodRes = await this.alertCtrl.create({
+  //             header: 'Created new User.',
+  //             message:'They must use the credentials for this account to login to the CMS',
+  //             buttons: [{
+  //               text: 'Done',
+  //               role: 'cancel'
+  //             }]
+  //           })
+  //           goodRes.present()
+  //         });
+  //       }},{
+  //         text: 'Cancel',
+  //         role:'cancel'
+  //       }]
+  //   })
+  //   alerter.present()
+  // }
   async createUser() {
-    let alerter = await this.alertCtrl.create({
+    const alert = await this.alertCtrl.create({
       header: 'New CMS User',
       message: 'This user will have access to your CMS',
       backdropDismiss: false,
@@ -83,27 +119,35 @@ export class MainscreenPage implements OnInit {
         placeholder: 'Password'
       }],
       buttons: [
-        {text: 'Create User', handler: (data) => {
-          console.log('credentials', data);
-          
-          this.db.collection('CMS_users').add({data,profile: 'no'}).then(async res => {
-            let goodRes = await this.alertCtrl.create({
-              header: 'Created new User.',
-              message:'They must use the credentials for this account to login to the CMS',
-              buttons: [{
-                text: 'Done',
-                role: 'cancel'
-              }]
-            })
-            goodRes.present()
-          })
-        }
-        },{
+        {
           text: 'Cancel',
-          role:'cancel'
-        }]
-    })
-    alerter.present()
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+            console.log('Confirm Cancel: blah');
+          }
+        }, {
+          text: 'Create User',
+          handler: (data) => {
+            console.log('credentials', data);
+          
+            this.db.collection('CMS_users').add({data,profile: 'no'}).then(async res => {
+              let goodRes = await this.alertCtrl.create({
+                header: 'Created new User.',
+                message:'They must use the credentials for this account to login to the CMS',
+                buttons: [{
+                  text: 'Done',
+                  role: 'cancel'
+                }]
+              })
+              goodRes.present()
+            });
+          }
+        }
+      ]
+    });
+
+    await alert.present();
   }
   async approveTournament(document) {
     let loader = await this.loadingCtrl.create({
@@ -121,9 +165,7 @@ export class MainscreenPage implements OnInit {
         }]
       })
       alerter.present()
-
     })
-
   }
   toCMS() {
     console.log('to CMs');
@@ -136,9 +178,7 @@ export class MainscreenPage implements OnInit {
       this.navCtrl.navigateRoot('home');
     }).catch(err => {
       console.log(err.message);
-
     })
-
   }
   getUsers() {
     let user = {
@@ -161,3 +201,7 @@ export class MainscreenPage implements OnInit {
     })
   }
 }
+
+
+
+
