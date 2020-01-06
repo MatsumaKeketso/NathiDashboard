@@ -41,7 +41,7 @@ export class AppComponent {
   }
   setupPush() {
     // I recommend to put these into your environment.ts
-    this.oneSignal.startInit('eb1dd5d9-19ad-4e2b-a93a-6540efa172d5', '743242408134');
+    this.oneSignal.startInit('9c83adf1-2824-464d-86b4-66c86d66af8d', '547769476202');
 
     this.oneSignal.getIds().then((res) => {
 

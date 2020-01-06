@@ -2,6 +2,8 @@ import { Component, OnInit, NgZone, Renderer2 } from '@angular/core';
 import { AlertController, NavController, LoadingController } from '@ionic/angular';
 import * as firebase from 'firebase'
 import { dismissOverlay } from '@ionic/core/dist/types/utils/overlays';
+import { OneSignal } from '@ionic-native/onesignal/ngx';
+import { rmdirSync } from 'fs';
 @Component({
   selector: 'app-mainscreen',
   templateUrl: './mainscreen.page.html',
@@ -11,6 +13,7 @@ export class MainscreenPage implements OnInit {
   cards = []
   newTournaments = []
   cmsMembers = []
+  tokenId = []
   db = firebase.firestore()
   view = {
     tournaments: true,
@@ -18,7 +21,7 @@ export class MainscreenPage implements OnInit {
     users: false,
     usersDiv: document.getElementsByClassName('left'),
   }
-  constructor(public renderer: Renderer2,public alertCtrl: AlertController, public navCtrl: NavController, public zone: NgZone, public loadingCtrl: LoadingController) { }
+  constructor(public renderer: Renderer2,public alertCtrl: AlertController, public navCtrl: NavController, public zone: NgZone, public loadingCtrl: LoadingController,private oneSignal: OneSignal) { }
   ngOnInit() {
     this.getUsers()
     while (this.cards.length < 80) {
@@ -28,6 +31,14 @@ export class MainscreenPage implements OnInit {
     this.db.collection('newTournaments').onSnapshot(res => {
       this.getTournaments()
     })
+
+    this.db.collection('members').get().then(res =>{
+      res.forEach(doc =>{
+        console.log(doc.data().token);
+        
+      })
+    })
+    
   }
   changeView(state) {
     console.log(state);
@@ -154,6 +165,40 @@ export class MainscreenPage implements OnInit {
       message: 'Approving ' + document.doc.formInfo.tournamentName + '.'
     })
     loader.present()
+
+    this.db.collection('tokens').get().then(res =>{
+      this.tokenId = []
+      res.forEach(doc =>{
+        console.log('tokens a a',doc.data());
+        
+this.tokenId.push(doc.data().token)
+      })
+      console.log('tokens', this.tokenId);
+      var notificationObj = {
+        headings: {en: "New Tournament Alert! "},
+        contents: { en: "Hey, tournmanet  " +document.doc.formInfo.tournamentName + " Has been created cancelled their  " + document.doc.formInfo.tournamentName + " on "+ document.doc.formInfo.tournamentName + " at " + document.doc.formInfo.tournamentName},
+        include_player_ids: this.tokenId,
+      }
+      this.oneSignal.postNotification(notificationObj).then(res => {
+       // console.log('After push notifcation sent: ' +res);
+      })
+    })
+
+    this.db.collection('members').get().then(res =>{
+        res.forEach(doc =>{
+          var notificationObj = {
+            headings: {en: "Alert "},
+            contents: { en: "Hey, tournmanet  " +doc.data().form.fullName + " Has been created cancelled their  " + document.doc.formInfo.tournamentName + " on "+ document.doc.formInfo.tournamentName + " at " + document.doc.formInfo.tournamentName},
+            include_player_ids: [doc.data().token]
+          }
+          this.oneSignal.postNotification(notificationObj).then(res => {
+           // console.log('After push notifcation sent: ' +res);
+          })
+        })
+      
+    })
+ 
+    
     this.db.collection('newTournaments').doc(document.docid).update({ approved: true }).then(async res => {
       loader.dismiss()
       let alerter = await this.alertCtrl.create({
