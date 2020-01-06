@@ -72,6 +72,7 @@ export class MainscreenPage implements OnInit {
     let alerter = await this.alertCtrl.create({
       header: 'New CMS User',
       message: 'This user will have access to your CMS',
+      backdropDismiss: false,
       inputs: [{
         name: 'email',
         type: 'email',
@@ -83,7 +84,8 @@ export class MainscreenPage implements OnInit {
       }],
       buttons: [
         {text: 'Create User', handler: (data) => {
-          console.log(data);
+          console.log('credentials', data);
+          
           this.db.collection('CMS_users').add({data,profile: 'no'}).then(async res => {
             let goodRes = await this.alertCtrl.create({
               header: 'Created new User.',
@@ -93,9 +95,13 @@ export class MainscreenPage implements OnInit {
                 role: 'cancel'
               }]
             })
-          }
-        } 
-      ]
+            goodRes.present()
+          })
+        }
+        },{
+          text: 'Cancel',
+          role:'cancel'
+        }]
     })
     alerter.present()
   }

@@ -8,6 +8,8 @@ import * as admin from 'firebase-admin';
 import * as firebase from 'firebase'
 import { OneSignal } from '@ionic-native/onesignal/ngx';
 const serviceAccount = require('./nathi-stourmentdb-firebase-adminsdk-tm3sd-50e3041b6f.json');
+
+
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
@@ -20,7 +22,7 @@ export class AppComponent {
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
     private oneSignal: OneSignal,
-    private alertCtrl: AlertController,
+    
   ) {
     this.initializeApp();
   
@@ -32,8 +34,9 @@ export class AppComponent {
       if (this.platform.is('cordova')) {
         this.setupPush();
        }
-      this.statusBar.styleDefault();
-      this.splashScreen.hide();
+      this.statusBar.styleLightContent();
+      this.statusBar.backgroundColorByHexString('#387336')
+
     });
   }
   setupPush() {
@@ -53,7 +56,7 @@ export class AppComponent {
       let msg = data.payload.body;
       let title = data.payload.title;
       let additionalData = data.payload.additionalData;
-      this.showAlert(title, msg, additionalData.task);
+
     });
 
     // Notification was really clicked/opened
@@ -61,24 +64,9 @@ export class AppComponent {
       // Just a note that the data is a different place here!
       let additionalData = data.notification.payload.additionalData;
 
-      this.showAlert('Notification opened', 'You already read this before', additionalData.task);
+
     });
 
     this.oneSignal.endInit();
-  }
-  async showAlert(title, msg, task) {
-    const alert = await this.alertCtrl.create({
-      header: title,
-      subHeader: msg,
-      buttons: [
-        {
-          text: `Action: ${task}`,
-          handler: () => {
-            // E.g: Navigate to a specific screen
-          }
-        }
-      ]
-    })
-    alert.present();
   }
 }
