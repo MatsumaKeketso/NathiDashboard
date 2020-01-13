@@ -15,7 +15,7 @@
 
       <div class="head">
         <div class="logo">
-          <p>N</p>
+          <img src="../../assets/icon.png" alt="">
         </div>
         <p><b>Nathi's</b> Dashboard</p>
       </div>
@@ -27,7 +27,7 @@
             <ion-button (click)="createUser()" fill='clear' style="margin: 0 !important; color: white !important;">
               <ion-icon slot="start" name="add"></ion-icon>
             </ion-button>
-            <ion-button (click)="changeView('tournaments')" fill='clear' size="small" style="margin: 0 !important; color: white !important;">
+            <ion-button (click)="changeView('tournaments')"  size="small" style="margin: 0 !important; color: white !important;">
                 Tournaments
               </ion-button>
           </div>
@@ -38,8 +38,8 @@
               </div>
               <div class="details">
                 <div>
-                  <p>{{item.doc.details.fullName}}</p>
-                  <p>{{item.doc.details.phoneNumber}}</p>
+                  <p>{{item.doc.formInfo.fullName}}</p>
+                  <p>{{item.doc.formInfo.number}}</p>
                 </div>
               </div>
             </div>
@@ -48,7 +48,7 @@
         <div class="right animated" [ngClass]="{'bounceInUp':view.tournaments,'bounceOutDown':!view.tournaments}">
           <div class="rHead">
             <p>New Tournament</p>
-            <ion-button (click)="changeView('users')" fill='clear' size="small" style="margin: 0 !important; color: white !important;">
+            <ion-button (click)="changeView('users')" size="small" style="margin: 0 !important; color: white !important;">
                 Users
               </ion-button>
           </div>

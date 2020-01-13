@@ -32,12 +32,12 @@ export class MainscreenPage implements OnInit {
       this.getTournaments()
     })
 
-    this.db.collection('members').get().then(res =>{
-      res.forEach(doc =>{
-        console.log(doc.data().token);
+    // this.db.collection('members').onSnapshot(res =>{
+    //   res.forEach(doc =>{
+    //     console.log(doc.data().token);
         
-      })
-    })
+    //   })
+    // })
     
   }
   changeView(state) {
@@ -160,6 +160,8 @@ export class MainscreenPage implements OnInit {
 
     await alert.present();
   }
+
+
   async approveTournament(document) {
     let loader = await this.loadingCtrl.create({
       message: 'Approving ' + document.doc.formInfo.tournamentName + '.'
@@ -230,13 +232,15 @@ this.tokenId.push(doc.data().token)
       doc: null,
       docid: null
     }
-    this.db.collection('admins').get().then(res=>{
+    this.db.collection('CMS_Profile').onSnapshot(res=>{
       res.forEach(doc => {
         user = {
           doc: doc.data(),
           docid: doc.id
         }
         this.cmsMembers.push(user);
+        console.log(this.cmsMembers);
+        
         user = {
           doc: null,
           docid: null
