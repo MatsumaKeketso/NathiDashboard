@@ -28,6 +28,12 @@ export class MainscreenPage implements OnInit {
       this.cards.push('card')
       console.log(this.cards.length);
     }
+    this.db.collection('newTournaments').onSnapshot(res =>{
+      res.forEach(doc =>{
+        this.db.collection('newTournaments').doc(doc.id)
+      })
+        
+    })
     this.db.collection('newTournaments').onSnapshot(res => {
       this.getTournaments()
     })
@@ -142,7 +148,7 @@ export class MainscreenPage implements OnInit {
           handler: (data) => {
             console.log('credentials', data);
           
-            this.db.collection('CMS_users').add({data,profile: 'no'}).then(async res => {
+            this.db.collection('CMS_users').add({email: data.email,password: data.password ,profile: 'no'}).then(async res => {
               let goodRes = await this.alertCtrl.create({
                 header: 'Created new User.',
                 message:'They must use the credentials for this account to login to the CMS',
