@@ -1,63 +1,79 @@
 /* width */
 ::-webkit-scrollbar {
     width: 5px;
-  }
-  * {
-      transition: 0.4s;
-  }
-  ::-webkit-scrollbar:hover {
+}
+
+* {
+    transition: 0.4s;
+}
+
+::-webkit-scrollbar:hover {
     width: 15px;
-  }
-  /* Track */
-  ::-webkit-scrollbar-track {
+}
+
+/* Track */
+::-webkit-scrollbar-track {
     background: #f1f1f14f;
     backdrop-filter: blur(20px);
     border-radius: 200px !important;
-  }
-  
-  /* Handle */
-  ::-webkit-scrollbar-thumb {
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
     background: rgb(255, 255, 255);
     border-radius: 200px !important;
-  }
-  
-  /* Handle on hover */
-  ::-webkit-scrollbar-thumb:hover {
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
     background: rgb(20, 75, 138) !important;
     border-radius: 200px !important;
-  }
-  .toCMS {
+}
+
+.toCMS {
     position: absolute;
     top: 10px;
     left: 2vw;
     z-index: 201;
 }
+
 .toLogout {
     position: absolute;
     top: 10px;
     right: 2vw;
     z-index: 200;
 }
+
 .container {
     width: 100%;
-    background: linear-gradient(rgba(0, 0, 0, 0.61)),url(../../assets/South-Africa-World-Cup-2010-Soccer-City-Stadium.jpg);
+    background: linear-gradient(rgba(0, 0, 0, 0.61)), url(../../assets/South-Africa-World-Cup-2010-Soccer-City-Stadium.jpg);
     height: 100%;
     background-size: cover;
     background-position: 50%;
     position: relative;
     user-select: none;
     overflow: hidden;
-   
+
     .leftDiv {
         position: absolute;
         left: 0;
         top: 0;
         bottom: 0;
-        background: linear-gradient(rgba(15, 13, 43, 0.932)), url(../../assets/SoqAxJR.png);
-        background-size: cover;
+        // background: linear-gradient(#000D06), url(../../assets/SoqAxJR.png);
+        // background-size: cover;
         width: 7vw;
         border-radius: 0px 100px 100px 0px;
+        background-color: #014023;
+        background: linear-gradient(30deg, #012615 12%, transparent 12.5%, transparent 87%, #012615 87.5%, #012615),
+            linear-gradient(150deg, #012615 12%, transparent 12.5%, transparent 87%, #012615 87.5%, #012615),
+            linear-gradient(30deg, #012615 12%, transparent 12.5%, transparent 87%, #012615 87.5%, #012615),
+            linear-gradient(150deg, #012615 12%, transparent 12.5%, transparent 87%, #012615 87.5%, #012615),
+            linear-gradient(60deg, #05A66B 25%, transparent 25.5%, transparent 75%, #05A66B 75%, #05A66B),
+            linear-gradient(60deg, #05A66B 25%, transparent 25.5%, transparent 75%, #05A66B 75%, #05A66B);
+        background-size: 80px 140px;
+        background-position: 0 0, 0 0, 40px 70px, 40px 70px, 0 0, 40px 70px;
     }
+
     .rightDiv {
         border-radius: 100px 0px 0px 100px;
         width: 7vw;
@@ -65,9 +81,19 @@
         right: 0;
         top: 0;
         bottom: 0;
-        background: linear-gradient(rgba(13, 13, 39, 0.932)), url(../../assets/SoqAxJR.png);
-        background-size: cover;
+        // background: linear-gradient(#000D06), url(../../assets/SoqAxJR.png);
+        // background-size: cover;
+        background-color: #014023;
+        background: linear-gradient(30deg, #012615 12%, transparent 12.5%, transparent 87%, #012615 87.5%, #012615),
+            linear-gradient(150deg, #012615 12%, transparent 12.5%, transparent 87%, #012615 87.5%, #012615),
+            linear-gradient(30deg, #012615 12%, transparent 12.5%, transparent 87%, #012615 87.5%, #012615),
+            linear-gradient(150deg, #012615 12%, transparent 12.5%, transparent 87%, #012615 87.5%, #012615),
+            linear-gradient(60deg, #05A66B 25%, transparent 25.5%, transparent 75%, #05A66B 75%, #05A66B),
+            linear-gradient(60deg, #05A66B 25%, transparent 25.5%, transparent 75%, #05A66B 75%, #05A66B);
+        background-size: 80px 140px;
+        background-position: 0 0, 0 0, 40px 70px, 40px 70px, 0 0, 40px 70px;
     }
+
     .middleDiv {
         position: absolute;
         top: 0;
@@ -75,6 +101,7 @@
         left: 7vw;
         right: 7vw;
         height: 100%;
+
         // overflow: hidden;
         .head {
             text-align: center;
@@ -83,6 +110,7 @@
             pointer-events: none;
             margin: 5px 0px;
             height: 10%;
+
             .logo {
 
                 width: 8vw;
@@ -95,19 +123,23 @@
                 // align-content: center;
                 align-items: center;
                 text-align: center;
+
                 p {
                     text-align: center;
                     margin: auto;
                     font-size: 3vw;
                 }
             }
+
             p {
                 margin: 2px 0px;
             }
         }
+
         .middleContent {
             width: 100%;
             height: 85%;
+
             // display: flex;
             // flex-wrap: nowrap;
             // USERS
@@ -122,54 +154,63 @@
                 display: none;
                 position: absolute;
                 margin: 0;
-               .lHead {
-                   display: flex;
-                   padding: 10px;
-                   align-items: center;
-                //    height: 3.5%;
-                   p {
-                       flex-basis: 90%;
-                       align-items: center;
-                       display: flex;
-                       
-                   }
-               }
-               .lList {
-                   max-height: 90%;
-                   overflow-y: auto;
-                   .card {
-                    background: white;
-                       width: 90%;
-                       height: 58px;
-                       margin: 5px auto;
-                       border-radius: 10px;
-                       box-shadow: 0px 3px 3px #17171717;
-                       display: flex;
-                       color: black;
-                       overflow: hidden;
-                       .image {
-                           width: 30%;
-                           height: 100%;
-                           img {
-                               width: 100%;
-                               height: 100%;
-                               object-fit: cover;
-                           }
-                       }
-                       .details {
-                           width: 70%;
-                           height: 100%;
-                           display: flex;
-                           align-items: center;
-                           padding: 0px 20px;
-                           p {
-                               font-size: 3vw;
-                               margin: 0;
-                           }
-                       }
-                   }
-               }
+
+                .lHead {
+                    display: flex;
+                    padding: 10px;
+                    align-items: center;
+
+                    //    height: 3.5%;
+                    p {
+                        flex-basis: 90%;
+                        align-items: center;
+                        display: flex;
+
+                    }
+                }
+
+                .lList {
+                    max-height: 90%;
+                    overflow-y: auto;
+
+                    .card {
+                        background: white;
+                        width: 90%;
+                        height: 58px;
+                        margin: 5px auto;
+                        border-radius: 10px;
+                        box-shadow: 0px 3px 3px #17171717;
+                        display: flex;
+                        color: black;
+                        overflow: hidden;
+
+                        .image {
+                            width: 30%;
+                            height: 100%;
+
+                            img {
+                                width: 100%;
+                                height: 100%;
+                                object-fit: cover;
+                            }
+                        }
+
+                        .details {
+                            width: 70%;
+                            height: 100%;
+                            display: flex;
+                            align-items: center;
+                            padding: 0px 20px;
+
+                            p {
+                                font-size: 3vw;
+                                margin: 0;
+                            }
+                        }
+                    }
+                }
             }
+
             // TOURNAMENTS
             .right {
                 height: 99%;
@@ -178,34 +219,39 @@
                 margin: 5px;
                 border-radius: 10px;
                 display: block;
+
                 .rHead {
                     display: flex;
                     padding: 10px;
+
                     p {
                         color: white;
                         flex-basis: 90%;
                         align-items: center;
                         display: flex;
                         font-size: 3vw;
-                        
+
                     }
                 }
+
                 .rList {
                     max-height: 89%;
                     overflow-y: auto;
                     display: flex;
                     flex-wrap: wrap;
                     justify-content: space-evenly;
+
                     .card {
                         position: relative;
-                     background: linear-gradient(rgba(255, 255, 255, 0.329)), url(../../assets/gray-polygonal-background-tmeks.jpg);
-                     background-size: cover;
+                        background: linear-gradient(rgba(255, 255, 255, 0.329)), url(../../assets/gray-polygonal-background-tmeks.jpg);
+                        background-size: cover;
                         width: 100%;
                         margin: 5px 5px 25px 5px;
                         border-radius: 10px;
                         box-shadow: 0px 3px 3px #17171717;
                         display: flex;
                         color: black;
+
                         .appro {
                             position: absolute;
                             bottom: -15px;
@@ -213,6 +259,7 @@
                             right: 0;
                             text-align: center;
                         }
+
                         .tTitle {
                             text-align: center;
                             position: absolute;
@@ -222,26 +269,31 @@
                             padding: 5px;
                             backdrop-filter: blur(50px);
                             border-radius: 10px;
+
                             h5 {
                                 margin: 0;
                                 padding: 0;
                                 font-size: 5vw;
                             }
                         }
+
                         .tDetails {
                             height: 100%;
                             align-items: center;
                             padding: 5px;
                             flex-basis: 90%;
-                            padding:40px 0px 40px 0px;
-                             p {
-                                 font-size: 3.5vw;
-                             }
+                            padding: 40px 0px 40px 0px;
+
+                            p {
+                                font-size: 3.5vw;
+                            }
                         }
+
                         .sponsors {
                             display: flex;
                             flex-direction: column;
                             padding-top: 40px;
+
                             img {
                                 width: 45px;
                             }
