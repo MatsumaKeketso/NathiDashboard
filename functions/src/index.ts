@@ -16,7 +16,7 @@ const {SENDER_EMAIL,SENDER_PASSWORD}= process.env;
 
 //Done
 exports.createAccount = functions.firestore.document('CMS_users/{docid}').onCreate((snap: { data: () => any; }, context: any) => {
-    console.log('Document change', snap.data());
+    console.log('Document change', snap.data() ,' doc id' + context.params.docid);
     const dataR = snap.data();
     const uid = context.params.docid
     const email = dataR.email
@@ -42,9 +42,9 @@ exports.createAccount = functions.firestore.document('CMS_users/{docid}').onCrea
         email: email,
         password: password
     })
- transporter.sendMail(mailOption).then(() =>{
+ return transporter.sendMail(mailOption).then(() =>{
    
-        db.doc('CMS_users/'+uid).delete().then(() =>{
+        db.collection('CMS_users/').doc(uid).delete().then(() =>{
             console.log("Document successfully deleted!");
         }).catch( (err: any) =>{
             console.error("Error removing document: ", err);
