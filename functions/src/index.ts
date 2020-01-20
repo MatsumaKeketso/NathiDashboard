@@ -26,7 +26,7 @@ exports.createAccount = functions.firestore.document('CMS_users/{docid}').onCrea
     const mailOption = {
         from: 'Nathis Tournament <sisekodolwana17@gmail.com>', // Something like: Jane Doe <janedoe@gmail.com>
         to: dataR.email,
-        subject: 'Payment Received', // email subject
+        subject: 'User Account Created', // email subject
         html: `<p style="font-size: 16px;">Good day <b>Admin User </b></p>
             <br />
             <p style="font-size: 15px;"> An account has been set up for you to be able to access nathi's Tournament CMS  </p>
@@ -68,16 +68,16 @@ exports.test = functions.firestore.document('test/{docid}').onCreate((snap: { da
 
 })
 let ID  = '';
-
+//DONE
 exports.newtournament = functions.firestore.document('newTournaments/{docid}').onUpdate(async (snap: { data: () => any; after: { data: () => any; }; },context :any) => {
     console.log('Document change', snap.after.data() , ' id', context.params.docid);
     ID = context.params.docid;
     const dataR = snap.after.data().approved;
     const tournName = snap.after.data().formInfo.tournamentName
     const appFee = snap.after.data().formInfo.joiningFee
-    const startDate = snap.after.data().formInfo.startDate
-    const endDate = snap.after.data().formInfo.endDate
-    const closingdate = snap.after.data().formInfo.applicationClosing
+    const startDate =  new Date(snap.after.data().formInfo.startDate) 
+    const endDate =  new Date( snap.after.data().formInfo.endDate) 
+    const closingdate = new Date(snap.after.data().formInfo.applicationClosing) 
     const notify = snap.after.data().notifyUser;
     console.log('masibone', dataR);
     if (dataR === true && notify === 'yes') {
@@ -87,7 +87,7 @@ exports.newtournament = functions.firestore.document('newTournaments/{docid}').o
         const payload = {
             notification: {
                 title: 'New Tournament has been created!',
-                body: `name of: ${tournName}, application fee: ${appFee}  , application closing date : ${closingdate} , the tournament will start ${startDate} and end ${endDate}`,
+                body: `name of: ${tournName}, application fee: ${appFee} , closing date for payment of the tournament application : ${closingdate} , the tournament will start ${startDate} and end ${endDate}`,
                 icon: 'https://goo.gl/Fz9nrQ'
             }
         }

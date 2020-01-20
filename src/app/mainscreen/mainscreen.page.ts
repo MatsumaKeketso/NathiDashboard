@@ -239,6 +239,7 @@ this.tokenId.push(doc.data().token)
       docid: null
     }
     this.db.collection('CMS_Profile').onSnapshot(res=>{
+      this.cmsMembers = []
       res.forEach(doc => {
         user = {
           doc: doc.data(),
