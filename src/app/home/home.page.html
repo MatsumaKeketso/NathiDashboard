@@ -21,7 +21,7 @@
       <div class="form animated " [ngClass]="{'fadeInUp': login,'fadeOutUp': !login}">
 
   <form (ngSubmit)="signIn(adminForm.value)" [formGroup]="adminForm">
-          <input type="email" formControlName="email" placeholder="Email">
+          <input type="email" formControlName="email" placeholder="nathi@tournaments.com">
           <div style='color: rgb(255, 74, 74);' *ngFor="let validation of validation_messages.email">
             <div class="err"
               *ngIf="adminForm.get('email').hasError(validation.type) && (adminForm.get('email').dirty || adminForm.get('email').touched)">
@@ -38,7 +38,7 @@
             </div>
 
           </div> <br>
-          <button *ngIf="signingin&&adminForm.valid" disabled="true"><ion-spinner name="bubbles"></ion-spinner></button>
+          <button *ngIf="signingin&&adminForm.valid" disabled="true"><ion-spinner style="margin: 0;" name="bubbles"></ion-spinner></button>
           <button *ngIf="adminForm.valid&&!signingin">Sign In</button>
           <button style='opacity: 0.5;' *ngIf="!adminForm.valid" disabled="true">Sign In</button>
         </form>
