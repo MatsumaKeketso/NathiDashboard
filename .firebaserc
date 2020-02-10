@@ -2,6 +2,6 @@
   "projects": {
     "www": "nathistournamentdb",
     "default": "nathistournamentdb",
-    "staging": "testtournamentdb"
+    "staging": "nathistournamentdb"
   }
 }

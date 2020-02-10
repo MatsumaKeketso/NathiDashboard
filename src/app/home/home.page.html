@@ -1,5 +1,5 @@
 <ion-content>
-    <div class="checking animated" [ngClass]="{'fadeOut': checking.login,'fadeOut': checking.profile}">
+    <div class="checking animated" [ngClass]="{'fadeOut': checking.login||checking.profile}">
         <div class="c">
           <p>{{authStatus}}</p>
           <ion-spinner color="light" name="dots"></ion-spinner>
