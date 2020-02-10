@@ -222,7 +222,7 @@ this.tokenId.push(doc.data().token)
   }
   toCMS() {
     console.log('to CMs');
-    window.location.href = 'https://nathistournamentdb.firebaseapp.com';
+    window.location.href = '';
   }
   signOut() {
     console.log('to out');

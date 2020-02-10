@@ -1,6 +1,6 @@
 <ion-content>
   <div class="toCMS">
-      <ion-button shape="round"  size="small"  (click)="toCMS()">
+      <ion-button shape="round"  size="small"  href="https://testtournamentdb.firebaseapp.com" target="_blank">
         CMS
       </ion-button>
     </div>
@@ -20,6 +20,7 @@
         <p><b>Nathi's</b> Dashboard</p>
       </div>
       <div class="middleContent">
+        <!-- USERs -->
         <div class="left animated" [ngClass]="{'bounceInUp':view.users,'bounceOutDown':!view.users}" >
           <div class="lHead">
             <p style="font-size: 3vw;">CMS Users</p>
@@ -28,7 +29,7 @@
               <ion-icon slot="start" name="add"></ion-icon>
             </ion-button>
             <ion-button (click)="changeView('tournaments')"  size="small" style="margin: 0 !important; color: white !important;">
-                Tournaments
+                Tournaments <ion-badge color="danger" mode="ios">{{newTournaments.length}}</ion-badge>
               </ion-button>
           </div>
           <div class="lList">
@@ -38,27 +39,29 @@
               </div>
               <div class="details">
                 <div>
-                  <p>{{item.doc.formInfo.fullName}}</p>
-                  <p>{{item.doc.formInfo.number}}</p>
+                  <p style="font-size: .8em;">{{item.doc.formInfo.fullName}}</p>
+                  <p style="font-size: .5em;">{{item.doc.formInfo.number}}</p>
                 </div>
               </div>
             </div>
           </div>
         </div>
+
+        <!-- TOurnaments -->
         <div class="right animated" [ngClass]="{'bounceInUp':view.tournaments,'bounceOutDown':!view.tournaments}">
           <div class="rHead">
-            <p>New Tournament</p>
+            <p>New Tournament </p>
             <ion-button (click)="changeView('users')" size="small" style="margin: 0 !important; color: white !important;">
-                Users
+                Users  <ion-badge color="danger">{{cmsMembers.length}}</ion-badge>
               </ion-button>
           </div>
           <div class="rList">
             <div class="card" *ngFor="let t of newTournaments">
               <div class="appro">
-                  <ion-button *ngIf="t.doc.approved==true" color="success" shape="round" size="small" >
+                  <ion-button disabled="true" *ngIf="t.doc.approved==true" color="success" shape="round" size="small" >
                       Approved
                     </ion-button>
-                <ion-button shape="round" size="small" *ngIf="t.doc.approved==false" (click)="approveTournament(t)" >
+                <ion-button shape="round" size="small" *ngIf="t.doc.approved==false" [disabled]="t.doc.state=='trash'" (click)="approveTournament(t)" >
                   Approve
                 </ion-button>
               </div>
@@ -70,15 +73,15 @@
                 <p>{{t.doc.formInfo.location}}</p>
                 <br>
                 <p>{{t.doc.formInfo.startDate | date}} to {{t.doc.formInfo.endDate | date}}</p>
-                <p>R {{t.doc.formInfo.joiningFee}}.00 fee</p>
+                <p id="fee">R {{t.doc.formInfo.joiningFee}}.00 fee</p>
                 <p>Top {{t.doc.formInfo.type}}</p>
-                <p>Application open until - {{t.doc.formInfo.applicationClosing | date}}</p>
+                <p id="bold">Application open until - {{t.doc.formInfo.applicationClosing | date}}</p>
                 <!-- <p *ngIf="t.doc.formInfo.approvedVendors.length" >{{t.doc.formInfo.approvedVendors.length}} Vendors Max</p> -->
               </div>
               <div class="sponsors">
                 <div *ngFor="let s of t.doc.formInfo.sponsors" >
                   <p *ngIf="t.doc.formInfo.sponsors.length==0" >No Sponsors</p>
-                   <img *ngIf="t.doc.formInfo.sponsors.length>0" src="{{s}}" alt="">
+                   <img *ngIf="t.doc.formInfo.sponsors.length>0" src="{{s.sponsorImage}}" alt="">
                 </div>
                
               </div>
