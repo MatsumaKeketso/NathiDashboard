@@ -1,10 +1,10 @@
 export const firebaseConfig = {
-    apiKey: "AIzaSyDb1Uifevrqy-GbsKt4BZ1PBE0t_bjQ1EQ",
-  authDomain: "testtournamentdb.firebaseapp.com",
-  databaseURL: "https://testtournamentdb.firebaseio.com",
-  projectId: "testtournamentdb",
-  storageBucket: "testtournamentdb.appspot.com",
-  messagingSenderId: "81311888576",
-  appId: "1:81311888576:web:896c7c5eadf5fab1166925",
-  measurementId: "G-8KZEPZZC8R"
+ apiKey: "AIzaSyCAyKiaUXKxrhyVM45drUW5vdiIdbFXLzs",
+    authDomain: "nathistournamentdb1.firebaseapp.com",
+    databaseURL: "https://nathistournamentdb1.firebaseio.com",
+    projectId: "nathistournamentdb1",
+    storageBucket: "nathistournamentdb1.appspot.com",
+    messagingSenderId: "945208184896",
+    appId: "1:945208184896:web:0eb0040ee49b99bc098fa5",
+    measurementId: "G-TJD6H2M0KM"
   }
