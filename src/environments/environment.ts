@@ -5,14 +5,14 @@
 export const environment = {
   production: false,
   Firebase : {
-    apiKey: "AIzaSyB7CsU8BC0jZdKP6e3_9dLmXr0DEbLs9xE",
-    authDomain: "tournaments-c444f.firebaseapp.com",
-    databaseURL: "https://tournaments-c444f.firebaseio.com",
-    projectId: "tournaments-c444f",
-    storageBucket: "tournaments-c444f.appspot.com",
-    messagingSenderId: "547769476202",
-    appId: "1:547769476202:web:a32f28c5f97751b4929613",
-    measurementId: "G-RVZNMY7CPT"
+    apiKey: "AIzaSyCAyKiaUXKxrhyVM45drUW5vdiIdbFXLzs",
+    authDomain: "nathistournamentdb1.firebaseapp.com",
+    databaseURL: "https://nathistournamentdb1.firebaseio.com",
+    projectId: "nathistournamentdb1",
+    storageBucket: "nathistournamentdb1.appspot.com",
+    messagingSenderId: "945208184896",
+    appId: "1:945208184896:web:0eb0040ee49b99bc098fa5",
+    measurementId: "G-TJD6H2M0KM"
   }
 };
 // export const firebaseConfig = {
