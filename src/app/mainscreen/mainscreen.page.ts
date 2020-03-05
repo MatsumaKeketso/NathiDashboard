@@ -10,6 +10,7 @@ import { rmdirSync } from 'fs';
   styleUrls: ['./mainscreen.page.scss'],
 })
 export class MainscreenPage implements OnInit {
+  dummy = [1,2,3,4,5,6,7,6,8,9]
   cards = []
   newTournaments = []
   cmsMembers = []
@@ -17,17 +18,24 @@ export class MainscreenPage implements OnInit {
   db = firebase.firestore()
   view = {
     tournaments: true,
-    tournDiv: document.getElementsByClassName('right'),
+    // tournDiv: document.getElementsByClassName('searcher'),
     users: false,
-    usersDiv: document.getElementsByClassName('left'),
+    usersDiv: document.getElementsByClassName('searcher'),
   }
   constructor(public renderer: Renderer2,public alertCtrl: AlertController, public navCtrl: NavController, public zone: NgZone, public loadingCtrl: LoadingController,private oneSignal: OneSignal) { }
   ngOnInit() {
+    const signUpButton = document.getElementById('signUp');
+const signInButton = document.getElementById('signIn');
+const container = document.getElementById('container');
+
+signUpButton.addEventListener('click', () => {
+	container.classList.add("right-panel-active");
+});
+
+signInButton.addEventListener('click', () => {
+	container.classList.remove("right-panel-active");
+});
     this.getUsers()
-    while (this.cards.length < 80) {
-      this.cards.push('card')
-      console.log(this.cards.length);
-    }
     this.db.collection('newTournaments').onSnapshot(res =>{
       res.forEach(doc =>{
         this.db.collection('newTournaments').doc(doc.id)
@@ -55,13 +63,13 @@ export class MainscreenPage implements OnInit {
         this.renderer.setStyle(this.view.usersDiv[0],'display','block');
         this.view.tournaments = false;
         setTimeout(() => {
-          this.renderer.setStyle(this.view.tournDiv[0],'display','none')
+          // this.renderer.setStyle(this.view.tournDiv[0],'display','none')
         }, 500);
         break;
       case 'tournaments':
       this.view.users = false;
       this.view.tournaments = true;
-      this.renderer.setStyle(this.view.tournDiv[0],'display','block')
+      // this.renderer.setStyle(this.view.tournDiv[0],'display','block')
       setTimeout(() => {
         this.renderer.setStyle(this.view.usersDiv[0],'display','none')
       }, 500);

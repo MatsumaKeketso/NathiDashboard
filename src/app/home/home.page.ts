@@ -41,6 +41,7 @@ export class HomePage {
     email: null
   }
   uploadprogress = 0;
+  imageUploaded = false
   validation_messages = {
     email: [
       { type: 'required', message: 'Email is required.' },
@@ -70,6 +71,20 @@ export class HomePage {
   }
 
   ngOnInit() {
+    // setTimeout(() => {
+    //   this.profile = true
+    // }, 1000);
+//     const signUpButton = document.getElementById('signUp');
+// const signInButton = document.getElementById('signIn');
+// const container = document.getElementById('container');
+
+// signUpButton.addEventListener('click', () => {
+// 	container.classList.add("right-panel-active");
+// });
+
+// signInButton.addEventListener('click', () => {
+// 	container.classList.remove("right-panel-active");
+// });
     this.ngZone.run(() => {
       setTimeout(() => {
         this.splashScreen.hide();
@@ -212,6 +227,61 @@ export class HomePage {
       })
       alerter.present()
     })
+  }
+  async selectimage(image) {
+    console.log(image.name)
+    let imagetosend = image.item(0);
+    console.log(imagetosend);
+    if (!imagetosend) {
+      const imgalert = await this.alertCtrl.create({
+        message: 'Select image to upload',
+        buttons: [{
+          text: 'Okay',
+          role: 'cancel'
+        }]
+      });
+      imgalert.present();
+    } else {
+      if (imagetosend.type.split('/')[0] !== 'image') {
+        const imgalert = await this.alertCtrl.create({
+          message: 'Unsupported file type.',
+          buttons: [{
+            text: 'Okay',
+            role: 'cancel'
+          }]
+        });
+        imgalert.present();
+        imagetosend = '';
+        return;
+      } else {
+        const upload = this.storage.child(image.item(0).name).put(imagetosend);
+        upload.on('state_changed', snapshot => {
+          const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          
+          console.log(progress);
+          if (progress <= 90) {
+            this.uploadprogress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+            
+          }else {
+            this.uploadprogress = 90
+          }
+        }, error => {
+        }, () => {
+          upload.snapshot.ref.getDownloadURL().then(downUrl => {
+            this.adminProfile.image = null
+            this.adminProfile.image = downUrl
+            setTimeout(() => {
+              this.imageUploaded = true
+              this.uploadprogress = 100
+            }, 1000);
+            // console.log(downUrl)
+            // this.tournamentObj.sponsors.push(newSponsor)
+            // console.log(this.tournamentObj.sponsors);
+
+          });
+        });
+      }
+    }
   }
 
   async selectImage() {
