@@ -1,5 +1,122 @@
 <ion-content>
-  <div class="toCMS">
+  <div class="searcher animated" [ngClass]="{'fadeInDown': view.users,'fadeOutUp dim': !view.users}">
+    <ion-searchbar></ion-searchbar>
+  </div>
+<div class="body">
+  <div class="container" [ngClass]="{'right-panel-active': view.users}" id="container">
+    <div class="form-container sign-up-container">
+
+      <div class="card" *ngFor="let item of dummy">
+        <div class="card__image-container">
+          <img class="card__image" src="https://images.unsplash.com/photo-1519999482648-25049ddd37b1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2126&q=80" alt="">
+       </div>
+         
+         <svg class="card__svg" viewBox="0 0 800 500">
+   
+           <path d="M 0 100 Q 50 200 100 250 Q 250 400 350 300 C 400 250 550 150 650 300 Q 750 450 800 400 L 800 500 L 0 500" stroke="transparent" fill="transparent"/>
+           <path class="card__line" d="M 0 100 Q 50 200 100 250 Q 250 400 350 300 C 400 250 550 150 650 300 Q 750 450 800 400" stroke="pink" stroke-width="3" fill="transparent"/>
+         </svg>
+       
+        <div class="card__content">
+          <h1 class="card__title">Lorem ipsum</h1>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta dolor praesentium at quod autem omnis, amet eaque unde perspiciatis adipisci possimus quam facere illo et quisquam quia earum nesciunt porro.</p>
+       </div>
+     </div>
+    </div>
+    <div class="form-container sign-in-container">
+      <div class="card animated fadeInUp faster" *ngFor="let t of newTournaments">
+        <div class="card__image-container">
+          <!-- <img class="card__image" src="https://images.unsplash.com/photo-1519999482648-25049ddd37b1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2126&q=80" alt=""> -->
+       </div>
+         
+         <svg class="card__svg" viewBox="0 0 800 500">
+   
+           <path d="M 0 100 Q 50 200 100 250 Q 250 400 350 300 C 400 250 550 150 650 300 Q 750 450 800 400 L 800 500 L 0 500" stroke="transparent" fill="#333"/>
+           <path class="card__line" d="M 0 100 Q 50 200 100 250 Q 250 400 350 300 C 400 250 550 150 650 300 Q 750 450 800 400" stroke="pink" stroke-width="3" fill="transparent"/>
+         </svg>
+       
+        <div class="card__content">
+          <h1 class="card__title">{{t.doc.formInfo.tournamentName}}</h1>
+          <br>
+        <p class="bio">{{t.doc.formInfo.bio}}</p>
+        <hr>
+        <br>
+        <p>{{t.doc.formInfo.startDate | date}} to {{t.doc.formInfo.endDate | date}}</p>
+          <p id="fee">R {{t.doc.formInfo.joiningFee}}.00 fee</p>
+          <p>Top {{t.doc.formInfo.type}}</p>
+          <p id="bold">Application open until - {{t.doc.formInfo.applicationClosing | date}}</p>
+        <div class="sponsors">
+          <div *ngFor="let s of t.doc.formInfo.sponsors" >
+            <p *ngIf="t.doc.formInfo.sponsors.length==0" >No Sponsors</p>
+             <img *ngIf="t.doc.formInfo.sponsors.length>0" src="{{s.sponsorImage}}" alt="">
+          </div>
+        </div>
+
+       </div>
+       <div class="appro">
+        <ion-button disabled="true" *ngIf="t.doc.approved==true" color="success" shape="round" size="small" >
+            Approved
+          </ion-button>
+      <ion-button shape="round" size="small" *ngIf="t.doc.approved==false" [disabled]="t.doc.state=='trash'" (click)="approveTournament(t)" >
+        Approve
+      </ion-button>
+    </div>
+     </div>
+      <!-- <div class="card" *ngFor="let t of newTournaments">
+        <div class="appro">
+            <ion-button disabled="true" *ngIf="t.doc.approved==true" color="success" shape="round" size="small" >
+                Approved
+              </ion-button>
+          <ion-button shape="round" size="small" *ngIf="t.doc.approved==false" [disabled]="t.doc.state=='trash'" (click)="approveTournament(t)" >
+            Approve
+          </ion-button>
+        </div>
+        <div class="tTitle">
+          <h5>{{t.doc.formInfo.tournamentName}}</h5>
+        </div>
+        <div class="tDetails">
+          <p>Participants {{t.doc.formInfo.type}}</p>
+          <p>{{t.doc.formInfo.location}}</p>
+          <br>
+          <p>{{t.doc.formInfo.startDate | date}} to {{t.doc.formInfo.endDate | date}}</p>
+          <p id="fee">R {{t.doc.formInfo.joiningFee}}.00 fee</p>
+          <p>Top {{t.doc.formInfo.type}}</p>
+          <p id="bold">Application open until - {{t.doc.formInfo.applicationClosing | date}}</p>
+        </div>
+        <div class="sponsors">
+          <div *ngFor="let s of t.doc.formInfo.sponsors" >
+            <p *ngIf="t.doc.formInfo.sponsors.length==0" >No Sponsors</p>
+             <img *ngIf="t.doc.formInfo.sponsors.length>0" src="{{s.sponsorImage}}" alt="">
+          </div>
+         
+        </div>
+      </div> -->
+    </div>
+    <div class="overlay-container">
+      <div class="overlay">
+        <div class="overlay-panel overlay-left">
+          <h1>Users</h1>
+          <p>This is the list of people whe currently have access to your CMS.</p>
+          <ion-button fill="outline" shape="round" color="light" id="signIn" (click)="changeView('tournaments')">
+            <ion-icon slot="start" name="arrow-back"></ion-icon>
+            See Tournaments
+          </ion-button>
+          <!-- <button class="ghost">Tournaments</button> -->
+        </div>
+        <div class="overlay-panel overlay-right">
+          <h1>Tournaments</h1>
+          <p>These are tournaments users in the CMS created, they need to be approved by you in order for team managers to apply to them.</p>
+               <ion-button fill="outline" shape="round" color="light" id="signUp" (click)="changeView('users')">
+            <ion-icon slot="end" name="arrow-forward"></ion-icon>
+            View Users
+          </ion-button>
+          <!-- <button class="ghost" >View Users</button> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+  <!-- <div class="toCMS">
       <ion-button shape="round"  size="small"  href="https://testtournamentdb.firebaseapp.com" target="_blank">
         CMS
       </ion-button>
@@ -20,7 +137,7 @@
         <p><b>Nathi's</b> Dashboard</p>
       </div>
       <div class="middleContent">
-        <!-- USERs -->
+        USERs
         <div class="left animated" [ngClass]="{'bounceInUp':view.users,'bounceOutDown':!view.users}" >
           <div class="lHead">
             <p style="font-size: 3vw;">CMS Users</p>
@@ -46,8 +163,8 @@
             </div>
           </div>
         </div>
-
-        <!-- TOurnaments -->
+      
+        TOurnaments
         <div class="right animated" [ngClass]="{'bounceInUp':view.tournaments,'bounceOutDown':!view.tournaments}">
           <div class="rHead">
             <p>New Tournament </p>
@@ -76,7 +193,6 @@
                 <p id="fee">R {{t.doc.formInfo.joiningFee}}.00 fee</p>
                 <p>Top {{t.doc.formInfo.type}}</p>
                 <p id="bold">Application open until - {{t.doc.formInfo.applicationClosing | date}}</p>
-                <!-- <p *ngIf="t.doc.formInfo.approvedVendors.length" >{{t.doc.formInfo.approvedVendors.length}} Vendors Max</p> -->
               </div>
               <div class="sponsors">
                 <div *ngFor="let s of t.doc.formInfo.sponsors" >
@@ -91,5 +207,5 @@
       </div>
     </div>
     <div class="rightDiv"></div>
-  </div>
+  </div> -->
 </ion-content>
