@@ -1,4 +1,16 @@
 <ion-content>
+  <div class="signout">
+    <ion-fab-button color="danger" fill="light" (click)="signOut()">
+      <ion-icon name="power"></ion-icon>
+    </ion-fab-button>
+    <div class="profile" style="display: flex; align-items: center; padding: 0px 10px;">
+      <!-- -->
+      <p style="margin: 0;">{{adminProfile.details.fullName}} </p>
+    </div>
+    <div class="image">
+
+    </div>
+  </div>
   <div class="searcher animated" [ngClass]="{'fadeInDown': view.users,'fadeOutUp dim': !view.users}">
     <ion-searchbar></ion-searchbar>
   </div>
@@ -6,9 +18,10 @@
   <div class="container" [ngClass]="{'right-panel-active': view.users}" id="container">
     <div class="form-container sign-up-container">
 
-      <div class="card" *ngFor="let item of dummy">
+      <div class="card" *ngFor="let item of cmsMembers">
         <div class="card__image-container">
-          <img class="card__image" src="https://images.unsplash.com/photo-1519999482648-25049ddd37b1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2126&q=80" alt="">
+          <img *ngIf="!item.doc.image" class="card__image" src="https://images.unsplash.com/photo-1519999482648-25049ddd37b1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2126&q=80" alt="">
+          <img *ngIf="item.doc.image" src="{{item.doc.image}}" alt="">
        </div>
          
          <svg class="card__svg" viewBox="0 0 800 500">
@@ -18,50 +31,42 @@
          </svg>
        
         <div class="card__content">
-          <h1 class="card__title">Lorem ipsum</h1>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta dolor praesentium at quod autem omnis, amet eaque unde perspiciatis adipisci possimus quam facere illo et quisquam quia earum nesciunt porro.</p>
+          <h1 class="card__title">{{item.doc.formInfo.fullName}}</h1>
+        <p>{{item.doc.formInfo.number}}</p>
        </div>
      </div>
     </div>
     <div class="form-container sign-in-container">
-      <div class="card animated fadeInUp faster" *ngFor="let t of newTournaments">
-        <div class="card__image-container">
-          <!-- <img class="card__image" src="https://images.unsplash.com/photo-1519999482648-25049ddd37b1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2126&q=80" alt=""> -->
-       </div>
+      <ion-card style="background: #333 !important;
+      color: #aaa !important;" class="animated fadeInUp faster" *ngFor="let t of newTournaments">
+        <ion-card-header>
+          <ion-card-title style="padding: 10px 13px; color: white; font-size: 3vw !important;">{{t.doc.formInfo.tournamentName}}</ion-card-title>
+          <ion-card-subtitle style="padding: 10px 13px; font-size: 1.1vw;"> Top {{t.doc.formInfo.type}} - <span id="fee" style="font-size: 1.1vw;"> R {{t.doc.formInfo.joiningFee}}.00 fee</span> <br>
+            Playing from {{t.doc.formInfo.startDate | date}} to {{t.doc.formInfo.endDate | date}}
+          </ion-card-subtitle>
          
-         <svg class="card__svg" viewBox="0 0 800 500">
-   
-           <path d="M 0 100 Q 50 200 100 250 Q 250 400 350 300 C 400 250 550 150 650 300 Q 750 450 800 400 L 800 500 L 0 500" stroke="transparent" fill="#333"/>
-           <path class="card__line" d="M 0 100 Q 50 200 100 250 Q 250 400 350 300 C 400 250 550 150 650 300 Q 750 450 800 400" stroke="pink" stroke-width="3" fill="transparent"/>
-         </svg>
-       
-        <div class="card__content">
-          <h1 class="card__title">{{t.doc.formInfo.tournamentName}}</h1>
-          <br>
-        <p class="bio">{{t.doc.formInfo.bio}}</p>
-        <hr>
-        <br>
-        <p>{{t.doc.formInfo.startDate | date}} to {{t.doc.formInfo.endDate | date}}</p>
-          <p id="fee">R {{t.doc.formInfo.joiningFee}}.00 fee</p>
-          <p>Top {{t.doc.formInfo.type}}</p>
-          <p id="bold">Application open until - {{t.doc.formInfo.applicationClosing | date}}</p>
-        <div class="sponsors">
-          <div *ngFor="let s of t.doc.formInfo.sponsors" >
-            <p *ngIf="t.doc.formInfo.sponsors.length==0" >No Sponsors</p>
-             <img *ngIf="t.doc.formInfo.sponsors.length>0" src="{{s.sponsorImage}}" alt="">
+        </ion-card-header>
+        <ion-card-content>
+          <p style="margin: 5px !important; font-size: 1.2vw;
+          line-height: 1.8vw;">{{t.doc.formInfo.bio}}</p>
+          Application open until - {{t.doc.formInfo.applicationClosing | date}}
+          <div class="sponsors">
+            <div *ngFor="let s of t.doc.formInfo.sponsors" >
+              <p *ngIf="t.doc.formInfo.sponsors.length==0" >No Sponsors</p>
+               <img *ngIf="t.doc.formInfo.sponsors.length>0" src="{{s.sponsorImage}}" alt="">
+            </div>
           </div>
+          <br><br>
+        </ion-card-content>
+        <div class="appro">
+          <ion-button fill="outline" disabled="true" *ngIf="t.doc.approved==true" color="danger" shape="round"  >
+          Approved
+        </ion-button>
+    <ion-button shape="round" fill="outline" color="success"  *ngIf="t.doc.approved==false" [disabled]="t.doc.state=='trash'" (click)="approveTournament(t)" >
+      Approve
+    </ion-button>
         </div>
-
-       </div>
-       <div class="appro">
-        <ion-button disabled="true" *ngIf="t.doc.approved==true" color="success" shape="round" size="small" >
-            Approved
-          </ion-button>
-      <ion-button shape="round" size="small" *ngIf="t.doc.approved==false" [disabled]="t.doc.state=='trash'" (click)="approveTournament(t)" >
-        Approve
-      </ion-button>
-    </div>
-     </div>
+      </ion-card>
       <!-- <div class="card" *ngFor="let t of newTournaments">
         <div class="appro">
             <ion-button disabled="true" *ngIf="t.doc.approved==true" color="success" shape="round" size="small" >
@@ -94,12 +99,23 @@
     </div>
     <div class="overlay-container">
       <div class="overlay">
+        <img style="position: absolute;
+        bottom: -1px;
+        width: 100%;
+        /* left: 0px; */
+        /* right: 0px; */
+        opacity: .1;" src="../../assets/Overelaybg.png" alt="">
         <div class="overlay-panel overlay-left">
           <h1>Users</h1>
           <p>This is the list of people whe currently have access to your CMS.</p>
           <ion-button fill="outline" shape="round" color="light" id="signIn" (click)="changeView('tournaments')">
             <ion-icon slot="start" name="arrow-back"></ion-icon>
             See Tournaments
+          </ion-button>
+          <br>
+          <ion-button fill="fill" shape="round" color="light" id="signIn" (click)="createUser()">
+            <ion-icon slot="start" name="add"></ion-icon>
+            New User
           </ion-button>
           <!-- <button class="ghost">Tournaments</button> -->
         </div>

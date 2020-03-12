@@ -22,8 +22,19 @@ export class MainscreenPage implements OnInit {
     users: false,
     usersDiv: document.getElementsByClassName('searcher'),
   }
+  adminProfile: ADMINPROFILE = {
+    admin: false,
+    details: {
+      fullName: '',
+      phoneNumber: ''
+    },
+    email: '',
+    image: ''
+  }
+  
   constructor(public renderer: Renderer2,public alertCtrl: AlertController, public navCtrl: NavController, public zone: NgZone, public loadingCtrl: LoadingController,private oneSignal: OneSignal) { }
   ngOnInit() {
+    this.getDashboardProfile()
     const signUpButton = document.getElementById('signUp');
 const signInButton = document.getElementById('signIn');
 const container = document.getElementById('container');
@@ -53,6 +64,23 @@ signInButton.addEventListener('click', () => {
     //   })
     // })
     
+  }
+  getDashboardProfile() {
+    firebase.auth().onAuthStateChanged(user => {
+      this.db.collection('admins').doc(user.uid).get().then(res => {
+        console.log(res.data());
+        this.adminProfile = {
+          admin: res.data().admin,
+          details: {
+            fullName: res.data().details.fullName,
+            phoneNumber: res.data().details.phoneNumber
+          },
+          email: res.data().email,
+          image: res.data().image
+        }
+        
+      })
+    })
   }
   changeView(state) {
     console.log(state);
@@ -232,14 +260,40 @@ this.tokenId.push(doc.data().token)
     console.log('to CMs');
     window.location.href = '';
   }
-  signOut() {
+  searcher(ev) {
+
+  }
+ async signOut() {
     console.log('to out');
-    firebase.auth().signOut().then(res => {
+    let signouter = await this.alertCtrl.create({
+      header: 'Sign out!',
+      message: 'Are you sure you want to sign out?',
+      buttons:[{
+        text: 'No',
+        role: 'cancel'
+      },
+    {
+      text: 'Okay',
+      handler: () => {
+            firebase.auth().signOut().then(res => {
       console.log('signedout');
+      this.adminProfile = {
+        admin: null,
+        details: {
+          fullName: null,
+          phoneNumber: null
+        },
+        email: null,
+        image: null
+      }
       this.navCtrl.navigateRoot('home');
     }).catch(err => {
       console.log(err.message);
     })
+      }
+    }]
+    })
+    await signouter.present()
   }
   getUsers() {
     let user = {
@@ -266,6 +320,14 @@ this.tokenId.push(doc.data().token)
   }
 }
 
-
+interface ADMINPROFILE {
+  admin: boolean,
+  details: {
+    fullName: string,
+    phoneNumber: string
+  },
+  email: string,
+  image: string
+}
 
 

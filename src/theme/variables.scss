@@ -75,6 +75,19 @@
   --ion-color-light-shade: #d7d8da;
   --ion-color-light-tint: #f5f6f9;
 }
+ion-card {
+  max-height: 50% !important;
+  width: 100% !important;
+  background: #333 !important;
+  color: #aaa !important;
+}
+ion-item {
+	background: #3881ff00 !important;
+
+}
+.item-native {
+  // --background: red !important;
+}
  * {
   font-family: 'Muli', sans-serif;
   margin: 0;

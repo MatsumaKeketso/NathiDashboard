@@ -1,4 +1,10 @@
 <ion-content>
+  <div class="checking animated delay-1s" [ngClass]="{'fadeOut': checking.login,'fadeOut': checking.profile}">
+    <div class="loading " >
+      <ion-spinner name="lines" color="light" *ngIf="authStatus=='Checking'"></ion-spinner> <br>
+      <h1>{{authStatus}}</h1>
+    </div>
+  </div>
 <div class="body">
   <div class="container" [ngClass]="{'right-panel-active':profile}" id="container">
     <div class="form-container sign-up-container">
@@ -63,6 +69,13 @@
     </div>
     <div class="overlay-container">
       <div class="overlay">
+        <img style="position: absolute;
+        bottom: -65px;
+        /* width: 142%; */
+        /* left: 0px; */
+        /* right: 0px; */
+        transform: translateX(100px);
+        opacity: .1;" src="../../assets/Overelaybg.png" alt="">
         <div class="overlay-panel overlay-left">
           <h1>No Profile!</h1>
           <p>To use the dashboard, your profile is required.</p>
