@@ -1,5 +1,5 @@
 <ion-content>
-  <div class="checking animated delay-1s" [ngClass]="{'fadeOut': checking.login,'fadeOut': checking.profile}">
+  <div class="checking animated delay-1s" [ngClass]="{'fadeOut': checking.login,'fadeOutUp': checking.profile}">
     <div class="loading " >
       <ion-spinner name="lines" color="light" *ngIf="authStatus=='Checking'"></ion-spinner> <br>
       <h1>{{authStatus}}</h1>
