@@ -12,13 +12,16 @@
     </div>
   </div>
   <div class="searcher animated" [ngClass]="{'fadeInDown': view.users,'fadeOutUp dim': !view.users}">
-    <ion-searchbar></ion-searchbar>
+    <ion-searchbar (ionChange)="getItems($event)"></ion-searchbar>
   </div>
 <div class="body">
   <div class="container" [ngClass]="{'right-panel-active': view.users}" id="container">
     <div class="form-container sign-up-container">
-
-      <div class="card" *ngFor="let item of cmsMembers">
+<div class="noResults animated delay-1s" style="position: absolute; top: 61px; left: 50%; transform: translateX(-50%); width: 200px; padding: 10px; background: rgb(255, 210, 210); color: red; text-align: center; border-radius: 10px;">
+          <p style="margin: 0;">No Users</p>
+        </div>
+      <div style="max-height:45% !important;" class="card" *ngFor="let item of cmsMemberResults" [ngClass]="{'fadeOut': cmsMemberResults.length==0}">
+        
         <div class="card__image-container">
           <img *ngIf="!item.doc.image" class="card__image" src="https://images.unsplash.com/photo-1519999482648-25049ddd37b1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2126&q=80" alt="">
           <img *ngIf="item.doc.image" src="{{item.doc.image}}" alt="">
@@ -58,14 +61,14 @@
           </div>
           <br><br>
         </ion-card-content>
-        <div class="appro">
-          <ion-button fill="outline" disabled="true" *ngIf="t.doc.approved==true" color="danger" shape="round"  >
+       
+          <ion-button class="appro" fill="outline" disabled="true" *ngIf="t.doc.approved==true" color="danger" shape="round"  >
           Approved
         </ion-button>
-    <ion-button shape="round" fill="outline" color="success"  *ngIf="t.doc.approved==false" [disabled]="t.doc.state=='trash'" (click)="approveTournament(t)" >
+    <ion-button class="appro" shape="round" fill="outline" color="success"  *ngIf="t.doc.approved==false" [disabled]="t.doc.state=='trash'" (click)="approveTournament(t)" >
       Approve
     </ion-button>
-        </div>
+      
       </ion-card>
       <!-- <div class="card" *ngFor="let t of newTournaments">
         <div class="appro">

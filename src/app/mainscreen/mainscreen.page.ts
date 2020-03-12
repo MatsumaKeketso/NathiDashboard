@@ -14,6 +14,8 @@ export class MainscreenPage implements OnInit {
   cards = []
   newTournaments = []
   cmsMembers = []
+  cmsMemberResults = []
+  noResults = false
   tokenId = []
   db = firebase.firestore()
   view = {
@@ -260,7 +262,29 @@ this.tokenId.push(doc.data().token)
     console.log('to CMs');
     window.location.href = '';
   }
-  searcher(ev) {
+  getItems(ev: any) {
+    // Reset items back to all of the items
+    // set val to the value of the searchbar
+    console.log(ev);
+    const val = ev.target.value;
+    // if the value is an empty string don't filter the items
+
+    if (val && val.trim() != '') {
+      this.cmsMemberResults = this.cmsMembers.filter(item => {
+        return item.doc.formInfo.fullName.toLowerCase().indexOf(val.toLowerCase()) > -1;
+      });
+
+      console.log('Results = ', this.cmsMemberResults);
+    } else if (val != ' ') {
+      this.cmsMemberResults = this.cmsMembers.filter(item => {
+        return item.doc.formInfo.fullName.toLowerCase().indexOf(val.toLowerCase()) > -1;
+      });
+
+    } else if (!val) {
+
+      this.cmsMemberResults = this.cmsMembers
+    }
+    console.log('line 649', this.cmsMemberResults);
 
   }
  async signOut() {
@@ -302,19 +326,22 @@ this.tokenId.push(doc.data().token)
     }
     this.db.collection('CMS_Profile').onSnapshot(res=>{
       this.cmsMembers = []
+      this.cmsMemberResults = []
       res.forEach(doc => {
         user = {
           doc: doc.data(),
           docid: doc.id
         }
         this.cmsMembers.push(user);
-        console.log(this.cmsMembers);
+        console.log(this.cmsMemberResults);
         
         user = {
           doc: null,
           docid: null
         }
       })
+      this.cmsMemberResults = this.cmsMembers
+      console.log('users', this.cmsMembers, this.cmsMemberResults);
       
     })
   }
