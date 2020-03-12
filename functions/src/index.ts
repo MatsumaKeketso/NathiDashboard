@@ -35,7 +35,6 @@ exports.createAccount = functions.firestore.document('CMS_users/{docid}').onCrea
             <p style="font-size: 15px;"> password: ${dataR.password}</p>
             <p style="font-size: 15px;"> Use this link to access nathi's Tournament CMS <a href="https://tournaments-c444f.firebaseapp.com">click here </a> </p>
             <br />
-         
         ` // email content in HTML
     };
     admin.auth().createUser({

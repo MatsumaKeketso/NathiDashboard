@@ -26,7 +26,7 @@ export class HomePage {
     profile: false,
     div: document.getElementsByClassName('checking')
   }
-  particlesJs = document.getElementsByClassName('middle-div')
+  particlesJs = document.getElementsByClassName('body')
   // ----------BEGIN  BACKEND AFTER THIS LINE -------------
   db = firebase.firestore()
   storage = firebase.storage().ref()
@@ -71,20 +71,22 @@ export class HomePage {
   }
 
   ngOnInit() {
-    // setTimeout(() => {
-    //   this.profile = true
-    // }, 1000);
-//     const signUpButton = document.getElementById('signUp');
-// const signInButton = document.getElementById('signIn');
-// const container = document.getElementById('container');
+    /*
+    setTimeout(() => {
+      this.profile = true
+    }, 1000);
+    const signUpButton = document.getElementById('signUp');
+const signInButton = document.getElementById('signIn');
+const container = document.getElementById('container');
 
-// signUpButton.addEventListener('click', () => {
-// 	container.classList.add("right-panel-active");
-// });
+signUpButton.addEventListener('click', () => {
+	container.classList.add("right-panel-active");
+});
 
-// signInButton.addEventListener('click', () => {
-// 	container.classList.remove("right-panel-active");
-// });
+signInButton.addEventListener('click', () => {
+	container.classList.remove("right-panel-active");
+});
+*/
     this.ngZone.run(() => {
       setTimeout(() => {
         this.splashScreen.hide();
@@ -98,7 +100,7 @@ export class HomePage {
               this.authStatus = "Welcome Back"
               this.checking.login = true;
               setTimeout(() => {
-                this.renderer.setStyle(this.checking.div[0], 'display', 'none')
+                // this.renderer.setStyle(this.checking.div[0], 'display', 'none')
               }, 500);
             } else {
               this.changeFormFocus('profile');
@@ -111,15 +113,20 @@ export class HomePage {
               }, 500);
               console.log('Signed in, buy no Profile');
             }
-
-
           }).catch(err => {
-            console.log('No Profile');
-
+            console.log('No Profile'); this.authStatus = "No Profile."
+            this.checking.profile = true;
+            this.login = false;
+          this.profile = true;
+          console.log(this.checking.div[0])
+          setTimeout(() => {
+            this.renderer.setStyle(this.checking.div[0], 'display', 'none')
+          }, 500);
           })
         } else {
-          console.log('Not signed in');
           this.authStatus = "Please Sign In."
+          console.log(this.authStatus);
+          
           this.checking.login = true;
           this.login = true;
           this.profile = false;
@@ -127,6 +134,8 @@ export class HomePage {
           setTimeout(() => {
             this.renderer.setStyle(this.checking.div[0], 'display', 'none')
           }, 500);
+          console.log(this.authStatus );
+          
         }
 
       })
@@ -159,25 +168,25 @@ export class HomePage {
   */
   changeFormFocus(state) {
     this.ngZone.run(() => {
-    switch (state) {
-      case 'login':
+      switch (state) {
+        case 'login':
           this.login = true;
           this.profile = false;
           setTimeout(() => {
             this.renderer.setStyle(this.loginDiv[0], 'display', 'block')
             this.renderer.setStyle(this.profileDiv[0], 'display', 'none')
           }, 700);
-        break;
+          break;
         case 'profile':
-            this.profile = true;
-            this.login = false;
-            this.renderer.setStyle(this.profileDiv[0], 'display', 'block')
-            setTimeout(() => {
-              this.renderer.setStyle(this.loginDiv[0], 'display', 'none')
-            }, 700);
+          this.profile = true;
+          this.login = false;
+          this.renderer.setStyle(this.profileDiv[0], 'display', 'block')
+          setTimeout(() => {
+            this.renderer.setStyle(this.loginDiv[0], 'display', 'none')
+          }, 700);
 
-            break;
-    }
+          break;
+      }
 
     })
 
@@ -201,7 +210,7 @@ export class HomePage {
         let alerter = await this.alertCtrl.create({
           header: 'PROFILE IMAGE UPLOAD ERROR',
           message: err.message,
-          buttons:[{text:'Okay',role:'cancel'}]
+          buttons: [{ text: 'Okay', role: 'cancel' }]
         })
         alerter.present()
         this.signingin = false
@@ -223,7 +232,7 @@ export class HomePage {
       let alerter = await this.alertCtrl.create({
         header: 'ERROR',
         message: err.message,
-        buttons:[{text:'Okay',role:'cancel'}]
+        buttons: [{ text: 'Okay', role: 'cancel' }]
       })
       alerter.present()
     })
@@ -257,12 +266,12 @@ export class HomePage {
         const upload = this.storage.child(image.item(0).name).put(imagetosend);
         upload.on('state_changed', snapshot => {
           const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-          
+
           console.log(progress);
           if (progress <= 90) {
             this.uploadprogress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-            
-          }else {
+
+          } else {
             this.uploadprogress = 90
           }
         }, error => {
@@ -307,17 +316,17 @@ export class HomePage {
       upload.on('state_changed', snapshot => {
         let progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
         this.uploadprogress = progress;
-      },async err => {
+      }, async err => {
         let alerter = await this.alertCtrl.create({
           header: 'PROFILE IMAGE UPLOAD ERROR',
           message: err.message,
-          buttons:[{text:'Okay',role:'cancel'}]
+          buttons: [{ text: 'Okay', role: 'cancel' }]
         })
         alerter.present()
       }, () => {
         upload.snapshot.ref.getDownloadURL().then(downUrl => {
           this.adminProfile.image = downUrl;
-       
+
         })
       })
     })

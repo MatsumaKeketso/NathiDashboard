@@ -1,4 +1,24 @@
 
+.checking {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	z-index: 1000;
+	background: linear-gradient(5deg, #086972, #278EA5);
+	display: flex;
+	align-content: center;
+	ion-progress-bar {
+		border-radius: 200px !important;
+	}
+	.loading {
+		text-align: center;
+		width: 50%;
+		margin: auto;
+		color: white;
+	}
+}
 @import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
 
 * {
@@ -8,7 +28,12 @@ ion-item {
   width: 100% !important;
 }
 .body {
-	background: #f6f5f7;
+	background: linear-gradient(-45deg, #086972, #278EA5);
+	// background: url(../../assets/Asset_2.png) no-repeat;
+	background-size: cover;
+    display: -webkit-box;
+	background-position: center;
+	background-attachment: fixed;
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -93,14 +118,14 @@ input {
 
 .container {
 	background-color: #fff;
-	border-radius: 0px;
+	border-radius: 10px;
   	box-shadow: 0 14px 28px rgba(0,0,0,0.25), 
 			0 10px 10px rgba(0,0,0,0.22);
 	position: relative;
 	overflow: hidden;
 	width: 768px;
-	max-width: 100%;
-	min-height: 100%;
+	max-width: 70%;
+	min-height: 70%;
 }
 
 .form-container {
@@ -163,8 +188,8 @@ input {
 
 .overlay {
 	background: #FF416C;
-	background: -webkit-linear-gradient(to right, #FF4B2B, #FF416C);
-	background: linear-gradient(to right, #FF4B2B, #FF416C);
+	background: -webkit-linear-gradient(to right, #086972, #17b978);
+	background: linear-gradient(to right, #17b978, #278ea5);
 	background-repeat: no-repeat;
 	background-size: cover;
 	background-position: 0 0;
