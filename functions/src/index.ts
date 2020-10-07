@@ -130,7 +130,6 @@ exports.TournamentApplicationNotification = functions.firestore.document('newTou
 
   admin.firestore().doc('newTournaments/'+ tournID).get().then( (response: any) =>{
 
-console.log('doc ref',response.data());
 if (dataR ==='accepted' && clientNotified === 1) {
     console.log('Send Client a notification that they have been accepted and ');
     const payload = {
